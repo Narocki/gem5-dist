@@ -91,8 +91,6 @@ FS_ARGS=" "
 SW_ARGS=" "
 CF_ARGS=" "
 M5_ARGS=" "
-KERNEL_CMD=""
-KERNEL_CMD_ARG=""
 while (($# > 0))
 do
     case "x$1" in
@@ -132,10 +130,6 @@ do
 	    CUR_ARGS="FS_ARGS"
 	    shift 1
 	    ;;
-    x--kernel-cmd)
-        KERNEL_CMD=$2
-        shift 2
-        ;;
 	x--cf-args)
 	    CUR_ARGS="CF_ARGS"
 	    shift 1
@@ -170,7 +164,6 @@ do
 done
 
 # Default values to use (in case they are not defined as command line options)
-# DEFAULT_FS_CONFIG=$M5_PATH/configs/example/fs.py
 DEFAULT_FS_CONFIG=$M5_PATH/configs/example/arm/dist_bigLITTLE.py
 DEFAULT_SW_CONFIG=$M5_PATH/configs/dist/sw.py
 DEFAULT_SW_PORT=2200
@@ -181,8 +174,6 @@ DEFAULT_SW_PORT=2200
 [ -z "$NNODES" ] && NNODES=2
 [ -z "$RUN_DIR" ] && RUN_DIR=$(pwd)
 [ -z "$CKPT_DIR" ] && CKPT_DIR=$(pwd)
-
-
 
 #  Check if all the executables we need exist
 [ -f "$FS_CONFIG" ] || { echo "FS config ${FS_CONFIG} not found"; exit 1; }
@@ -279,14 +270,7 @@ start_func ()
 	      MY_ARGS="$@"
 	      xterm -e "gdb --args $MY_ARGS" &
       else
-                case "$HOST" in
-                        127.0.0.1|localhost)
-                                eval $ENV_ARGS "$@" &> $RUN_DIR/log.$N &
-                                ;;
-                        *)
-                                ssh $HOST $ENV_ARGS "$@" &> $RUN_DIR/log.$N &
-                                ;;
-                esac
+        ssh $HOST $ENV_ARGS "$@" &> $RUN_DIR/log.$N &
       fi
       echo "gem5 process #$1 started on host $2"
 }
@@ -350,12 +334,6 @@ else
     abort_func
 fi
 
-# Build the kernel cmdline argument (nodes only). Keep quotes to preserve the
-# value as a single token when passed through ssh.
-if [ -n "$KERNEL_CMD" ]; then
-    KERNEL_CMD_ARG="--kernel-cmd=\"$KERNEL_CMD\""
-fi
-
 # Now launch all the gem5 processes with ssh.
 echo "START $(date)"
 n=0
@@ -373,16 +351,13 @@ do
                        $M5_ARGS                                               \
                        $FS_CONFIG                                             \
                        $FS_ARGS                                               \
-                       $KERNEL_CMD_ARG                                         \
                        $CF_ARGS                                               \
                        --checkpoint-dir=$CKPT_DIR/m5out.$n                    \
 	               --dist                                                 \
 	               --dist-rank=$n                                         \
 	               --dist-size=$NNODES                                    \
                        --dist-server-name=${HOSTS[0]}                         \
-                       --dist-server-port=$SW_PORT                              \
-                       --etherdump="$RUN_DIR/m5out.$n/eth0.pcap"
-                       # Honor link delay from fs/switch args instead of forcing 5us
+                       --dist-server-port=$SW_PORT
 	    SSH_PIDS[$n]=$!
 	((n+=1))
     done

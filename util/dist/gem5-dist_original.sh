@@ -170,8 +170,7 @@ do
 done
 
 # Default values to use (in case they are not defined as command line options)
-# DEFAULT_FS_CONFIG=$M5_PATH/configs/example/fs.py
-DEFAULT_FS_CONFIG=$M5_PATH/configs/example/arm/dist_bigLITTLE.py
+DEFAULT_FS_CONFIG=$M5_PATH/configs/example/fs.py
 DEFAULT_SW_CONFIG=$M5_PATH/configs/dist/sw.py
 DEFAULT_SW_PORT=2200
 
@@ -181,8 +180,6 @@ DEFAULT_SW_PORT=2200
 [ -z "$NNODES" ] && NNODES=2
 [ -z "$RUN_DIR" ] && RUN_DIR=$(pwd)
 [ -z "$CKPT_DIR" ] && CKPT_DIR=$(pwd)
-
-
 
 #  Check if all the executables we need exist
 [ -f "$FS_CONFIG" ] || { echo "FS config ${FS_CONFIG} not found"; exit 1; }
@@ -268,7 +265,6 @@ watchdog_func ()
 # launching gem5 processes under gdb control for debugging
 start_func ()
 {
-      echo "Starting gem5 process #$1 on host $2 ..."
       local N=$1
       local HOST=$2
       local ENV_ARGS=$3
@@ -288,7 +284,6 @@ start_func ()
                                 ;;
                 esac
       fi
-      echo "gem5 process #$1 started on host $2"
 }
 
 # block till the gem5 process starts
@@ -380,9 +375,7 @@ do
 	               --dist-rank=$n                                         \
 	               --dist-size=$NNODES                                    \
                        --dist-server-name=${HOSTS[0]}                         \
-                       --dist-server-port=$SW_PORT                              \
-                       --etherdump="$RUN_DIR/m5out.$n/eth0.pcap"
-                       # Honor link delay from fs/switch args instead of forcing 5us
+                       --dist-server-port=$SW_PORT
 	    SSH_PIDS[$n]=$!
 	((n+=1))
     done

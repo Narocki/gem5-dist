@@ -173,6 +173,13 @@ def main():
         root = bL.build(options)
         addEthernet(root.system, options)
 
+        # In distributed runs we often want to keep going long enough to
+        # capture additional context when a kernel panic/oops is detected.
+        # Configure this directly on the FS nodes so it doesn't impact the
+        # switch process.
+        root.system.workload.on_panic = "DumpDmesgAndContinue"
+        root.system.workload.on_oops = "DumpDmesgAndContinue"
+
     bL.instantiate(options, checkpoint_dir=options.checkpoint_dir)
     bL.run(options.checkpoint_dir)
 

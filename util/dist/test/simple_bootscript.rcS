@@ -1,104 +1,236 @@
 #!/bin/bash
+# /sbin/m5 checkpoint
+
+set +u
+set -x
+
+# Ver si el driver tomó control del hardware
+# Antes de insmod
+modprobe -r e1000 2>/dev/null || true
+modinfo e1000 | egrep -i 'msi|int|interrupt'
 
 
-#
-# Copyright (c) 2015 ARM Limited
-# All rights reserved
-#
-# The license below extends only to copyright in the software and shall
-# not be construed as granting a license to any other intellectual
-# property including but not limited to intellectual property relating
-# to a hardware implementation of the functionality of the software
-# licensed hereunder.  You may use the software subject to the license
-# terms below provided that you ensure that this notice is replicated
-# unmodified and in its entirety in all distributions of the software,
-# modified or unmodified, in source code or in binary form.
-#
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions are
-# met: redistributions of source code must retain the above copyright
-# notice, this list of conditions and the following disclaimer;
-# redistributions in binary form must reproduce the above copyright
-# notice, this list of conditions and the following disclaimer in the
-# documentation and/or other materials provided with the distribution;
-# neither the name of the copyright holders nor the names of its
-# contributors may be used to endorse or promote products derived from
-# this software without specific prior written permission.
-#
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-# OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#
-# This is an example boot script to use for dist-gem5 runs. The important
-# task here is to extract the rank and size information through the m5
-# initparam utility and use those to configure MAC/IP addresses and hostname.
-#
-# You are expected to customize this scipt for your needs (e.g. change
-# the command at the end of the scipt to run your tests/workloads.
+insmod /lib/modules/5.15.0-142-generic/kernel/drivers/net/ethernet/intel/e1000/e1000.ko
 
-source /root/.bashrc
-echo "bootscript.rcS is running"
+# Espera breve a que aparezca la interfaz (la configuración real se hará
+# más abajo en función de dist-rank/dist-size).
+sleep 2
 
-# Retrieve dist-gem5 rank and size parameters using the 'm5' utility
-MY_RANK=$(/sbin/m5 initparam dist-rank)
-[ $? = 0 ] || { echo "m5 initparam failed"; exit -1; }
-MY_SIZE=$(/sbin/m5 initparam dist-size)
-[ $? = 0 ] || { echo "m5 initparam failed"; exit -1; }
+# Verificar si ahora el estado es UP
+ip link show eth0
+lspci -v
 
-/bin/hostname node${MY_RANK}
+# --- CONFIGURACIÓN DEL BENCHMARK ---
+# Ajustado a la ruta donde tu script de imagen instaló los benchmarks
+BENCHMARK_BIN="/root/osu_installed/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw"
 
-# Keep MAC address assignment simple for now ...
-(($MY_RANK > 97)) && { echo "(E) Rank must be less than 98"; /sbin/m5 abort; }
-((MY_ADDR = MY_RANK + 2))
-if (($MY_ADDR < 10))
-then
-    MY_ADDR_PADDED=0${MY_ADDR}
-else
-    MY_ADDR_PADDED=${MY_ADDR}
-fi
+# Argumentos (ajustar según necesidad)
+# -x 10 : Solo 10 mensajes de calentamiento
+# -i 100 : Solo 100 mediciones (suficiente para estadística estable)
+# -m 0:65536 : Probar desde 0 bytes hasta 64KB (evita los tests de 4MB que tardan mucho)
+BENCHMARK_ARGS="-x 10 -i 5 -m 0:65536"
+# -----------------------------------------------------------------
+# 1. CONFIGURACIÓN DE RED E IDENTIDAD
+# -----------------------------------------------------------------
+echo "[BOOT] Iniciando configuración de red..."
+source /root/.bashrc || true
 
-/sbin/ifconfig eth0 hw ether 00:90:00:00:00:${MY_ADDR_PADDED}
-/sbin/ifconfig eth0 192.168.0.${MY_ADDR} netmask 255.255.255.0 up
-
-/sbin/ifconfig -a
-
-echo "Hello from $MY_RANK of $MY_SIZE"
-
-# Now that our network interface is configured we can use the usual commands to
-# contact the other systems, e.g. let's try to ping a "neighbour" system
-if ((MY_RANK < MY_SIZE - 1))
-then
-    ping -c 1 192.168.0.$((MY_ADDR + 1))
-else
-    ping -c 1 192.168.0.2
+# Haveged ayuda a que SSHD arranque rápido si falta entropía
+if [ -x /usr/sbin/haveged ]; then
+    /usr/sbin/haveged -w 1024 -v 1
 fi
 
 
-if [ "$MY_RANK" == "0" ]
-then
-    # Trigger an immediate checkpoint at the next sync (by passing a non-zero
-    # delay param to m5 ckpt)
-    /sbin/m5 checkpoint 1
-    echo "A real multi node workload might start here ..."
-    # Trigger an immediate exit at the next sync (by passing a non-zero delay
-    # param to m5 exit)
-    /sbin/m5 exit 1
-else
-    # This is to avoid other (rank!=0) gem5 processes exiting
-    # before the test (started by rank 0) completes. When rank 0 completes the
-    # test it will exit and that will trigger a notification to all the peer
-    # gem5 processes to stop the simulation.
-    echo "sleep forever..."
-    while /bin/true
-    do
-	sleep 5
+MY_RANK=$(/sbin/m5 initparam dist-rank 2>/dev/null || true)
+[ -z "$MY_RANK" ] && MY_RANK=0
+MY_SIZE=$(/sbin/m5 initparam dist-size 2>/dev/null || true)
+[ -z "$MY_SIZE" ] && MY_SIZE=1
+
+MY_RANK=$((MY_RANK + 0))
+MY_SIZE=$((MY_SIZE + 0))
+
+HOSTNAME="node${MY_RANK}"
+hostname "$HOSTNAME"
+ifconfig lo 127.0.0.1 up
+
+# IP Config: node0=192.168.0.2 ...
+MY_ADDR=$((MY_RANK + 2))
+MY_IP="192.168.0.$MY_ADDR"
+
+# Detect NIC name (prefer first non-lo). Fall back to eth0 for old setups.
+IFACE=$(ip -o link | awk -F': ' '$2!="lo"{print $2; exit}')
+[ -z "$IFACE" ] && IFACE="eth0"
+
+# Asegura estado limpio antes de configurar (evita IP/MAC duplicadas entre nodos).
+ip link set "$IFACE" down 2>/dev/null || true
+ip addr flush dev "$IFACE" 2>/dev/null || true
+ip link set dev "$IFACE" address 00:90:00:00:00:$(printf "%02x" $MY_ADDR) 2>/dev/null || true
+ip addr add "$MY_IP/24" dev "$IFACE" 2>/dev/null || true
+# Asegura ruta on-link para el /24 (en algunas distros/flags no se instala automáticamente).
+ip route replace 192.168.0.0/24 dev "$IFACE" scope link src "$MY_IP" 2>/dev/null || true
+ip link set "$IFACE" up 2>/dev/null || true
+
+# Evita depender de ARP/ND (broadcast/multicast) en dist-gem5: pre-carga entradas
+# de vecino IPv4 (IP->MAC) para todos los nodos con el esquema determinista.
+for ((i=0; i<MY_SIZE; i++)); do
+    [ "$i" = "$MY_RANK" ] && continue
+    PEER_ADDR=$((i + 2))
+    PEER_IP="192.168.0.$PEER_ADDR"
+    PEER_MAC="00:90:00:00:00:$(printf "%02x" $PEER_ADDR)"
+    ip neigh replace "$PEER_IP" lladdr "$PEER_MAC" dev "$IFACE" nud permanent 2>/dev/null || true
+done
+
+# Optimización gem5 (Desactivar offload)
+if command -v ethtool >/dev/null 2>&1; then
+    ethtool -K "$IFACE" tso off gso off gro off lro off rx off tx off sg off >/dev/null 2>&1 || true
+fi
+
+# Generar /etc/hosts dinámico
+echo "127.0.0.1 localhost" > /etc/hosts
+for ((i=0; i<MY_SIZE; i++)); do
+    # [ "$i" = "$MY_RANK" ] && continue
+    echo "192.168.0.$((i + 2)) node$i" >> /etc/hosts
+done
+
+# -----------------------------------------------------------------
+# 2. INICIO DEL SERVICIO SSH
+# -----------------------------------------------------------------
+sleep 1
+
+echo "[SSH] Iniciando servicio..."
+# Configuración SSH: Usar cifrado chacha20-poly1305 para evitar AES
+# Forzar cifrados simples y algoritmos de intercambio de llaves básicos
+cat > /etc/ssh/sshd_config <<EOF
+Port 22
+Protocol 2
+HostKey /etc/ssh/ssh_host_rsa_key
+Ciphers chacha20-poly1305@openssh.com
+KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group14-sha256
+MACs hmac-sha2-256-etm@openssh.com
+UseDNS no
+PubkeyAuthentication yes
+PasswordAuthentication yes
+EOF
+cat > /root/.ssh/config <<EOF
+Host *
+    Ciphers chacha20-poly1305@openssh.com
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+    LogLevel ERROR
+EOF
+chmod 600 /root/.ssh/config
+
+# Asegurar directorios (por si /run es tmpfs y se borró al reiniciar)
+mkdir -p /run/sshd
+chmod 0755 /run/sshd
+
+# CHECK DE SEGURIDAD: Host Keys
+# Tu script de imagen tenía comentado 'ssh-keygen -A'.
+# Si faltan las claves del servidor (host keys), las generamos aquí una sola vez.
+if [ ! -f /etc/ssh/ssh_host_rsa_key ]; then
+    echo "[SSH] Generando Host Keys faltantes..."
+    ssh-keygen -A
+fi
+
+# Las claves de usuario (/root/.ssh/id_rsa) YA ESTÁN EN LA IMAGEN.
+# No las tocamos.
+
+cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+chmod 600 /root/.ssh/authorized_keys
+chmod 700 /root/.ssh
+
+# --- FIX CRNG GEM5 ---
+if [ -e /dev/random ]; then
+    mv /dev/random /dev/random.real
+    ln -s /dev/urandom /dev/random
+fi
+
+dd if=/dev/urandom of=/dev/random.real bs=512 count=8 status=none || true
+
+# Arrancar Demonio SSH
+sleep 0.5
+
+mount -t proc /proc /proc
+mount -t sysfs /sys /sys
+
+/usr/sbin/sshd
+
+ip link show
+ip a show
+ip -4 route show || true
+ip neigh show dev "$IFACE" || true
+# -----------------------------------------------------------------
+# 3. LÓGICA DE ORQUESTACIÓN
+# -----------------------------------------------------------------
+
+if [ "$MY_RANK" = "0" ]; then
+    # === MASTER ===
+    echo "[MASTER] Rol: ORQUESTADOR. IP: $MY_IP"
+
+    # Generar hostfile para OpenMPI
+    > /tmp/hostfile
+    for ((i=0; i<MY_SIZE; i++)); do
+        echo "node$i" >> /tmp/hostfile
     done
+
+    echo "[MASTER] Esperando a los esclavos (Puerto 22)..."
+    for ((i=1; i<MY_SIZE; i++)); do
+        PEER_IP="192.168.0.$((i + 2))"
+        echo "[MASTER] Esperando a node$i ($PEER_IP)..."
+
+        # La imagen puede no tener 'ping' (iputils-ping). Usamos conectividad real
+        # al puerto 22 como señal de red OK.
+        while true; do
+            if command -v nc >/dev/null 2>&1; then
+                nc -z -w 1 node$i 22 && break
+            else
+                # Fallback bash: prueba conexión TCP (no requiere nc).
+                (echo > /dev/tcp/node$i/22) >/dev/null 2>&1 && break
+            fi
+
+            echo "[MASTER] node$i aún no acepta TCP/22. Diagnóstico:"
+            ip -4 route get "$PEER_IP" || true
+            ip neigh show "$PEER_IP" dev "$IFACE" || true
+
+            sleep 1
+        done
+        echo "[MASTER] node$i listo."
+    done
+
+    echo "[MASTER] Ejecutando MPIRUN..."
+
+    if [ ! -f "$BENCHMARK_BIN" ]; then
+        echo "[ERROR] Binario no encontrado: $BENCHMARK_BIN"
+        ls -R /root/osu_installed
+        /sbin/m5 exit 1
+    fi
+
+    # Ejecución MPI
+    # Nota: Ya no necesitamos pasar variables de entorno locas ni configurar ssh
+    # porque todo está en la imagen (.ssh/config y .bashrc).
+    # MPICH (CH4:OFI) puede intentar usar libfabric+psm2 por defecto y crashear
+    # en gem5 (SIGILL en libpsm2). Forzamos a TCP.
+    # export FI_PROVIDER=tcp
+    # export FI_TCP_IFACE="$IFACE"
+
+
+    export HWLOC_XMLFILE=/tmp/topo.xml
+    mpirun \
+        --hostfile /tmp/hostfile \
+        -np $MY_SIZE \
+        "$BENCHMARK_BIN" $BENCHMARK_ARGS
+
+    EXIT_CODE=$?
+    echo "[MASTER] MPI Finalizado. Exit: $EXIT_CODE"
+
+    # Fin de la simulación
+    /sbin/m5 exit 1
+
+else
+    # === SLAVE ===
+    echo "[SLAVE] SSHD activo. Esperando conexión del Master..."
+
+    # Bloqueamos el script para que PID 1 nunca termine
+    # 'tail -f /dev/null' consume menos CPU que un bucle sleep en gem5
+    tail -f /dev/null
 fi

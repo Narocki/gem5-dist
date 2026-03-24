@@ -87,6 +87,7 @@ IGbE::IGbE(const Params &p)
     regs.sts.fd(1); // full duplex
     regs.sts.lu(1); // link up
     regs.eecd.fwe(1);
+    regs.eecd.ee_pres(1);
     regs.eecd.ee_type(1);
     regs.imr = 0;
     regs.iam = 0;

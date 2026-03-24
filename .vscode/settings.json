@@ -3,5 +3,8 @@
         "src/python",
         "ext",
         "tests"
-    ]
+    ],
+    "files.associations": {
+        "iostream": "cpp"
+    }
 }

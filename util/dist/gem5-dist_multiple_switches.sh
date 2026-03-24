@@ -83,6 +83,8 @@ usage_func ()
     echo "     conf_args : common (for both fullsystem and switch) config argument list: arg1 arg2 ..."
     echo "     gem5_exe  : gem5 executable (full path required)"
     echo "     m5_args   : common m5 argument list (e.g. debug flags): arg1 arg2 ..."
+    echo "     --num-leaf-switches N : number of leaf switches below a master switch (default: 1)"
+    echo "     --nodes-per-switch L  : comma-separated nodes per leaf switch, e.g. 4,4,8"
     echo "Note: if no LSF slots allocation is found all proceses are launched on the localhost."
 }
 
@@ -93,6 +95,9 @@ CF_ARGS=" "
 M5_ARGS=" "
 KERNEL_CMD=""
 KERNEL_CMD_ARG=""
+LEAF_SWITCHES=1
+NODES_PER_SWITCH=""
+SW_CONFIG_SET_BY_USER=0
 while (($# > 0))
 do
     case "x$1" in
@@ -118,6 +123,7 @@ do
             ;;
         x-s|x-switch)
             SW_CONFIG=$2
+            SW_CONFIG_SET_BY_USER=1
             shift 2
             ;;
 	x--sw-args)
@@ -136,6 +142,14 @@ do
         KERNEL_CMD=$2
         shift 2
         ;;
+        x--num-leaf-switches)
+            LEAF_SWITCHES=$2
+            shift 2
+            ;;
+        x--nodes-per-switch)
+            NODES_PER_SWITCH=$2
+            shift 2
+            ;;
 	x--cf-args)
 	    CUR_ARGS="CF_ARGS"
 	    shift 1
@@ -171,7 +185,7 @@ done
 
 # Default values to use (in case they are not defined as command line options)
 # DEFAULT_FS_CONFIG=$M5_PATH/configs/example/fs.py
-DEFAULT_FS_CONFIG=$M5_PATH/configs/example/arm/dist_bigLITTLE.py
+DEFAULT_FS_CONFIG=$M5_PATH/configs/example/x86/dist_x86.py
 DEFAULT_SW_CONFIG=$M5_PATH/configs/dist/sw.py
 DEFAULT_SW_PORT=2200
 
@@ -181,6 +195,44 @@ DEFAULT_SW_PORT=2200
 [ -z "$NNODES" ] && NNODES=2
 [ -z "$RUN_DIR" ] && RUN_DIR=$(pwd)
 [ -z "$CKPT_DIR" ] && CKPT_DIR=$(pwd)
+
+# Validate hierarchical switch options
+[[ "$LEAF_SWITCHES" =~ ^[0-9]+$ ]] || { echo "Invalid --num-leaf-switches: $LEAF_SWITCHES"; exit 1; }
+((LEAF_SWITCHES >= 1)) || { echo "--num-leaf-switches must be >= 1"; exit 1; }
+
+if [ -n "$NODES_PER_SWITCH" ]; then
+    IFS=',' read -r -a NODE_SPLITS <<< "$NODES_PER_SWITCH"
+    (( ${#NODE_SPLITS[@]} == LEAF_SWITCHES )) || {
+        echo "--nodes-per-switch must have exactly $LEAF_SWITCHES values"
+        exit 1
+    }
+    TOTAL_SPLIT=0
+    for v in "${NODE_SPLITS[@]}"
+    do
+        [[ "$v" =~ ^[0-9]+$ ]] || { echo "Invalid nodes-per-switch value: $v"; exit 1; }
+        ((v > 0)) || { echo "Each nodes-per-switch value must be > 0"; exit 1; }
+        ((TOTAL_SPLIT+=v))
+    done
+    ((TOTAL_SPLIT == NNODES)) || {
+        echo "Sum of --nodes-per-switch values ($TOTAL_SPLIT) must equal nnodes ($NNODES)"
+        exit 1
+    }
+fi
+
+# If using multiple leaf switches, use a hierarchical switch config
+# (master switch + N leaf switches) from the repository.
+if ((LEAF_SWITCHES > 1)); then
+    HIER_SW_CONFIG="$M5_PATH/configs/dist/sw_hierarchical.py"
+    [ -f "$HIER_SW_CONFIG" ] || { echo "Hierarchical switch config ${HIER_SW_CONFIG} not found"; exit 1; }
+    if ((SW_CONFIG_SET_BY_USER == 0)); then
+        SW_CONFIG="$HIER_SW_CONFIG"
+    fi
+    SW_ARGS="$SW_ARGS --num-leaf-switches=$LEAF_SWITCHES"
+    if [ -n "$NODES_PER_SWITCH" ]; then
+        SW_ARGS="$SW_ARGS --nodes-per-switch=$NODES_PER_SWITCH"
+    fi
+    echo "(I) Using hierarchical switch mode with config: $SW_CONFIG"
+fi
 
 
 
@@ -216,7 +268,7 @@ do
         host=""
     fi
 done
-((NNODES==NH)) || { echo "(E) Number of cluster slots ($NH) and gem5 instances ($N) differ"; exit -1; }
+((NNODES==NH)) || { echo "(E) Number of cluster slots ($NH) and gem5 instances ($NNODES) differ"; exit -1; }
 
 # function to clean up and abort if something goes wrong
 abort_func ()
@@ -332,7 +384,8 @@ start_func "switch" $SW_HOST "$ENV_ARGS" $GEM5_EXE -d $RUN_DIR/m5out.switch   \
           --checkpoint-dir=$CKPT_DIR/m5out.switch                             \
           --is-switch                                                         \
           --dist-size=$NNODES                                                 \
-          --dist-server-port=$SW_PORT
+          --dist-server-port=$SW_PORT                                             \
+          --etherdump="$RUN_DIR/m5out.switch/eth0.pcap"
 SW_PID=$!
 
 # block here till switch process starts

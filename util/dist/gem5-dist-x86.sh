@@ -171,7 +171,7 @@ done
 
 # Default values to use (in case they are not defined as command line options)
 # DEFAULT_FS_CONFIG=$M5_PATH/configs/example/fs.py
-DEFAULT_FS_CONFIG=$M5_PATH/configs/example/arm/dist_bigLITTLE.py
+DEFAULT_FS_CONFIG=$M5_PATH/configs/example/x86/dist_x86.py
 DEFAULT_SW_CONFIG=$M5_PATH/configs/dist/sw.py
 DEFAULT_SW_PORT=2200
 
@@ -194,6 +194,11 @@ mkdir -p $RUN_DIR > /dev/null 2>&1
 declare -a SSH_PIDS
 declare -a HOSTS
 declare -a NCORES
+declare -a SSH_PORT_ARR
+
+if [ -n "${SSH_PORTS:-}" ]; then
+    read -r -a SSH_PORT_ARR <<< "$SSH_PORTS"
+fi
 
 # Find out which cluster hosts/slots are allocated or
 # use localhost if there is no LSF allocation.
@@ -271,8 +276,9 @@ start_func ()
       echo "Starting gem5 process #$1 on host $2 ..."
       local N=$1
       local HOST=$2
-      local ENV_ARGS=$3
-      shift 3
+    local SSH_PORT=$3
+    local ENV_ARGS=$4
+    shift 4
       if [ "x$GEM5_DEBUG" != "x" ]
       then
 	      echo "DEBUG starting terminal..."
@@ -284,7 +290,11 @@ start_func ()
                                 eval $ENV_ARGS "$@" &> $RUN_DIR/log.$N &
                                 ;;
                         *)
-                                ssh $HOST $ENV_ARGS "$@" &> $RUN_DIR/log.$N &
+                                if [ -n "$SSH_PORT" ]; then
+                                    ssh -p "$SSH_PORT" $HOST $ENV_ARGS "$@" &> $RUN_DIR/log.$N &
+                                else
+                                    ssh $HOST $ENV_ARGS "$@" &> $RUN_DIR/log.$N &
+                                fi
                                 ;;
                 esac
       fi
@@ -323,8 +333,9 @@ rm $RUN_DIR/log.switch > /dev/null 2>&1
 mkdir -p $CKPT_DIR/m5out.switch > /dev/null 2>&1
 # launch switch gem5
 SW_HOST=${HOSTS[0]}
+SW_SSH_PORT="${SSH_PORT_ARR[0]:-}"
 echo "launch switch gem5 process on $SW_HOST ..."
-start_func "switch" $SW_HOST "$ENV_ARGS" $GEM5_EXE -d $RUN_DIR/m5out.switch   \
+start_func "switch" $SW_HOST "$SW_SSH_PORT" "$ENV_ARGS" $GEM5_EXE -d $RUN_DIR/m5out.switch   \
           $M5_ARGS                                                            \
           $SW_CONFIG                                                          \
           $SW_ARGS                                                            \
@@ -364,12 +375,13 @@ do
     h=${HOSTS[$i]}
     for ((j=0; j < ${NCORES[i]}; j++))
     do
+        SSH_PORT="${SSH_PORT_ARR[$n]:-}"
         #cleanup log files before starting gem5 processes
         rm $RUN_DIR/log.$n > /dev/null 2>&1
         # make sure that CKPT_DIR exists
         mkdir -p $CKPT_DIR/m5out.$n > /dev/null 2>&1
 	    echo "starting gem5 on $h ..."
-	    start_func $n $h "$ENV_ARGS" $GEM5_EXE -d $RUN_DIR/m5out.$n       \
+	    start_func $n $h "$SSH_PORT" "$ENV_ARGS" $GEM5_EXE -d $RUN_DIR/m5out.$n       \
                        $M5_ARGS                                               \
                        $FS_CONFIG                                             \
                        $FS_ARGS                                               \

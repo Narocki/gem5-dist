@@ -141,7 +141,10 @@ cpu_clock_rate = args.cpu_clock_rate
 memory_size = args.memory_size
 
 # Try downloading the Resource
-bbl_resource = obtain_resource("riscv-boot-exit-nodisk")
+bbl_resource = obtain_resource(
+    "riscv-boot-exit-nodisk", resource_version="1.0.0"
+)
+# bbl_resource = obtain_resource("riscv-ubuntu-24.04-boot", resource_version="2.0.0")
 bbl_path = bbl_resource.get_local_path()
 
 system = System()
@@ -158,7 +161,11 @@ system.mem_mode = "timing"
 createHiFivePlatform(system)
 
 system.system_outgoing_bridge = OutgoingRequestBridge()
-system.system_port = system.system_outgoing_bridge.port
+system.system_port = system.membus.cpu_side_ports
+
+system.memory_outgoing_bridge = OutgoingRequestBridge()
+system.memory_outgoing_bridge.port = system.membus.mem_side_ports
+
 generateDtb(system)
 system.workload = RiscvLinux()
 system.workload.addr_check = False

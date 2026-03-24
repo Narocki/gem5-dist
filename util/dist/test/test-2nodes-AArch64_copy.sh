@@ -45,7 +45,7 @@
 GEM5_DIR=$(pwd)/$(dirname $0)/../../..
 
 # IMG=$M5_PATH/disks/ubuntu-18.04-arm64-docker.img
-IMG=$M5_PATH/disks/arm64-ubuntu-20220727.img.bk
+IMG=$M5_PATH/disks/arm64-ubuntu-20220727.img
 # VMLINUX=$M5_PATH/binaries/vmlinux.arm64
 VMLINUX=$M5_PATH/binaries/arm64-vmlinux-5.4.49
 
@@ -55,29 +55,9 @@ GEM5_EXE=$GEM5_DIR/build/ARM/gem5.opt
 
 BOOT_SCRIPT=$GEM5_DIR/util/dist/test/simple_bootscript.rcS
 GEM5_DIST_SH=$GEM5_DIR/util/dist/gem5-dist.sh
-# Disable kernel address space layout randomization (KASLR).
-# gem5 installs kernel-function PC events (e.g., panic/oops handlers) and
-# relies on stable symbol addresses; KASLR can cause false triggers and/or
-# broken dmesg dumps.
-KERNEL_CMD="random.trust_cpu=on nokaslr"
 
-# Keep switch and nodes consistent. Increasing link speed reduces the chances
-# of DistEtherLink reporting "packet not sent, link busy" during bursts.
-# ETH_LINK_DELAY="500ms"
-
-ETH_LINK_DELAY="1ms"
-
-# Higher speed reduces chances of "packet not sent, link busy" bursts.
-ETH_LINK_SPEED="100Gbps"
-
-SYN_REPEAT="20us"
-DEBUG_FLAGS="--debug-flags=DistEthernet" #,Ethernet,DistEthernetCmd,DistEthernetPkt,WorkItems"
+DEBUG_FLAGS="--debug-flags=DistEthernet"
 #CHKPT_RESTORE="-r1"
-
-# Don't immediately terminate the simulation if gem5 detects execution of the
-# kernel panic/oops handlers. This helps distinguish a real Linux panic from a
-# false trigger of the PC event hook and preserves the serial output.
-# (Configured in configs/example/arm/dist_bigLITTLE.py so it only affects FS nodes.)
 
 NNODES=2
 
@@ -85,22 +65,13 @@ $GEM5_DIST_SH -n $NNODES                                  \
               -x $GEM5_EXE                                \
               -s $SW_CONFIG                               \
               -f $FS_CONFIG                               \
-        --kernel-cmd "$KERNEL_CMD"                 \
-            --sw-args                                   \
-                  --dist-sync-start=0                  \
-                  --dist-sync-repeat=$SYN_REPEAT              \
-                  --ethernet-linkdelay=$ETH_LINK_DELAY \
-                  --ethernet-linkspeed=$ETH_LINK_SPEED \
+              --sw-args                                   \
+                      --dist-sync-start 1000000000000t         \
               --m5-args                                   \
                  $DEBUG_FLAGS                             \
               --fs-args                                   \
-                --dist-sync-start=0                    \
-                --dist-sync-repeat=$SYN_REPEAT                \
-                --ethernet-linkdelay=$ETH_LINK_DELAY   \
-                --ethernet-linkspeed=$ETH_LINK_SPEED   \
-                  --cpu-type=timing                       \
-                  --caches                                \
-                  --last-cache-level=2                    \
+                    --dist-sync-start 1000000000000t         \
+                  --cpu-type=atomic                       \
                   --little-cpus=1                         \
                   --big-cpus=1                            \
                   --machine-type=VExpress_GEM5_Foundation \
@@ -109,30 +80,3 @@ $GEM5_DIST_SH -n $NNODES                                  \
                   --bootscript=$BOOT_SCRIPT               \
               --cf-args                                   \
                   $CHKPT_RESTORE
-
-# $GEM5_DIST_SH -n $NNODES                                  \
-#               -x $GEM5_EXE                                \
-#               -s $SW_CONFIG                               \
-#               -f $FS_CONFIG                               \
-#         --kernel-cmd "$KERNEL_CMD"                 \
-#             --sw-args                                   \
-#                   --dist-sync-start=0                  \
-#                   --dist-sync-repeat=10us              \
-#                   --ethernet-linkdelay=$ETH_LINK_DELAY \
-#                   --ethernet-linkspeed=$ETH_LINK_SPEED \
-#               --m5-args                                   \
-#                  $DEBUG_FLAGS                             \
-#               --fs-args                                   \
-#                 --dist-sync-start=0                    \
-#                 --dist-sync-repeat=10us                \
-#                 --ethernet-linkdelay=$ETH_LINK_DELAY   \
-#                 --ethernet-linkspeed=$ETH_LINK_SPEED   \
-#                   --cpu-type=atomic                       \
-#                   --little-cpus=1                         \
-#                   --big-cpus=1                            \
-#                   --machine-type=VExpress_GEM5_Foundation \
-#                   --disk=$IMG                             \
-#                   --kernel=$VMLINUX                       \
-#                   --bootscript=$BOOT_SCRIPT               \
-#               --cf-args                                   \
-#                   $CHKPT_RESTORE

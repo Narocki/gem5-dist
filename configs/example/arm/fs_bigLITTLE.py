@@ -98,6 +98,17 @@ class BigCluster(devices.ArmCpuCluster):
         super().__init__(system, num_cpus, cpu_clock, cpu_voltage, *cpu_config)
 
 
+class BigClusterGeneric(devices.ArmCpuCluster):
+    def __init__(self, system, num_cpus, cpu_clock, cpu_voltage="1.0V"):
+        cpu_config = [
+            ObjectList.cpu_list.get("ArmO3CPU"),  # usa DefaultFUPool con AES
+            devices.L1I,
+            devices.L1D,
+            devices.L2,
+        ]
+        super().__init__(system, num_cpus, cpu_clock, cpu_voltage, *cpu_config)
+
+
 class LittleCluster(devices.ArmCpuCluster):
     def __init__(self, system, num_cpus, cpu_clock, cpu_voltage="1.0V"):
         cpu_config = [
@@ -180,7 +191,7 @@ def createSystem(
 
 cpu_types = {
     "atomic": (AtomicCluster, AtomicCluster),
-    "timing": (BigCluster, LittleCluster),
+    "timing": (BigClusterGeneric, LittleCluster),
     "exynos": (Ex5BigCluster, Ex5LittleCluster),
 }
 
@@ -361,7 +372,10 @@ def build(options):
 
     root.system = system
     if options.kernel_cmd:
-        system.workload.command_line = options.kernel_cmd
+        # Append user-provided kernel args to defaults so required flags stay intact.
+        system.workload.command_line = " ".join(
+            kernel_cmd + [options.kernel_cmd]
+        )
     else:
         system.workload.command_line = " ".join(kernel_cmd)
 

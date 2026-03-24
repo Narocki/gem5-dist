@@ -45,70 +45,95 @@
 GEM5_DIR=$(pwd)/$(dirname $0)/../../..
 
 # IMG=$M5_PATH/disks/ubuntu-18.04-arm64-docker.img
-IMG=$M5_PATH/disks/arm64-ubuntu-20220727.img.bk
+IMG=$M5_PATH/disks/x86-ubuntu-22.04-img-20250731
 # VMLINUX=$M5_PATH/binaries/vmlinux.arm64
-VMLINUX=$M5_PATH/binaries/arm64-vmlinux-5.4.49
+VMLINUX=$M5_PATH/binaries/x86-linux-kernel-5.15.180
 
-FS_CONFIG=$GEM5_DIR/configs/example/arm/dist_bigLITTLE.py
-SW_CONFIG=$GEM5_DIR/configs/dist/sw.py
-GEM5_EXE=$GEM5_DIR/build/ARM/gem5.opt
+FS_CONFIG=$M5_PATH/configs/example/x86/dist_x86.py
+SW_CONFIG=$M5_PATH/configs/dist/sw.py
+GEM5_EXE=$M5_PATH/build/X86/gem5.opt
 
-BOOT_SCRIPT=$GEM5_DIR/util/dist/test/simple_bootscript.rcS
-GEM5_DIST_SH=$GEM5_DIR/util/dist/gem5-dist.sh
+BOOT_SCRIPT=$M5_PATH/util/dist/test/simple_bootscript.rcS
+GEM5_DIST_SH=$M5_PATH/util/dist/gem5-dist-x86.sh
 # Disable kernel address space layout randomization (KASLR).
 # gem5 installs kernel-function PC events (e.g., panic/oops handlers) and
 # relies on stable symbol addresses; KASLR can cause false triggers and/or
 # broken dmesg dumps.
-KERNEL_CMD="random.trust_cpu=on nokaslr"
-
+#KERNEL_CMD="random.trust_cpu=on nokaslr acpi=off libata.dma=0"
+KERNEL_CMD="random.trust_cpu=on nokaslr acpi=off"
 # Keep switch and nodes consistent. Increasing link speed reduces the chances
 # of DistEtherLink reporting "packet not sent, link busy" during bursts.
 # ETH_LINK_DELAY="500ms"
 
-ETH_LINK_DELAY="1ms"
 
+#ETH_LINK_DELAY="1ms"
+ETH_LINK_DELAY="20us"
+#ETH_LINK_DELAY="50us"
+#ETH_LINK_DELAY="26us"
+#ETH_LINK_DELAY="10us"
 # Higher speed reduces chances of "packet not sent, link busy" bursts.
-ETH_LINK_SPEED="100Gbps"
+ETH_LINK_SPEED="400Gbps"
 
+#SYN_REPEAT="50us"
 SYN_REPEAT="20us"
-DEBUG_FLAGS="--debug-flags=DistEthernet" #,Ethernet,DistEthernetCmd,DistEthernetPkt,WorkItems"
-#CHKPT_RESTORE="-r1"
+#SYN_REPEAT="25us"
+#SYN_REPEAT="10us"
+SYN_START="8000000000000t"
+SYN_START="0"
+DEBUG_FLAGS="--debug-flags=DistEthernet,Cache,CoherentXBar"
+DEBUG_FLAGS="" #--debug-flags=DistEthernet,ExecAll" #Ethernet,DistEthernetCmd,DistEthernetPkt,WorkItems"
+ENABLE_CHECKPOINT_RESTORE=false
+RESTORE_FROM_ARG=""
+SW_CHKPT_RESTORE_ARG="--checkpoint-restore=\"\""
+if [ "$ENABLE_CHECKPOINT_RESTORE" = true ]; then
+    RESTORE_FROM_ARG="--restore-from=cpt.12068050000000"
+    SW_CHKPT_RESTORE_ARG="--checkpoint-restore=\"r 2\""
+fi
+CPU_TYPE="atomic"
 
 # Don't immediately terminate the simulation if gem5 detects execution of the
 # kernel panic/oops handlers. This helps distinguish a real Linux panic from a
 # false trigger of the PC event hook and preserves the serial output.
 # (Configured in configs/example/arm/dist_bigLITTLE.py so it only affects FS nodes.)
 
-NNODES=2
+NNODES=4
+
+LSB_MCPU_HOSTS="gem5-cluster_master 1 gem5-cluster_worker1 1 gem5-cluster_worker2 1 gem5-cluster_worker3 1"
+export LSB_MCPU_HOSTS
 
 $GEM5_DIST_SH -n $NNODES                                  \
-              -x $GEM5_EXE                                \
-              -s $SW_CONFIG                               \
-              -f $FS_CONFIG                               \
+        -x $GEM5_EXE                                \
+        -s $SW_CONFIG                               \
+        -p 2210                                     \
+        -f $FS_CONFIG                               \
         --kernel-cmd "$KERNEL_CMD"                 \
-            --sw-args                                   \
-                  --dist-sync-start=0                  \
-                  --dist-sync-repeat=$SYN_REPEAT              \
-                  --ethernet-linkdelay=$ETH_LINK_DELAY \
-                  --ethernet-linkspeed=$ETH_LINK_SPEED \
-              --m5-args                                   \
-                 $DEBUG_FLAGS                             \
-              --fs-args                                   \
-                --dist-sync-start=0                    \
-                --dist-sync-repeat=$SYN_REPEAT                \
-                --ethernet-linkdelay=$ETH_LINK_DELAY   \
-                --ethernet-linkspeed=$ETH_LINK_SPEED   \
-                  --cpu-type=timing                       \
-                  --caches                                \
-                  --last-cache-level=2                    \
-                  --little-cpus=1                         \
-                  --big-cpus=1                            \
-                  --machine-type=VExpress_GEM5_Foundation \
-                  --disk=$IMG                             \
-                  --kernel=$VMLINUX                       \
-                  --bootscript=$BOOT_SCRIPT               \
-              --cf-args                                   \
-                  $CHKPT_RESTORE
+        --sw-args                                   \
+          --dist-sync-start=$SYN_START                    \
+          --dist-sync-repeat=$SYN_REPEAT          \
+          --ethernet-linkdelay=$ETH_LINK_DELAY    \
+          --ethernet-linkspeed=$ETH_LINK_SPEED    \
+        --m5-args                                   \
+          --debug-file=debug.log                \
+          --debug-start="1325168160008" \
+          $DEBUG_FLAGS                           \
+          --listener-mode=off                     \
+        --fs-args                                   \
+          --dist-sync-start=$SYN_START                    \
+          --dist-sync-repeat=$SYN_REPEAT          \
+          --ethernet-linkdelay=$ETH_LINK_DELAY    \
+          --ethernet-linkspeed=$ETH_LINK_SPEED    \
+          --cpu-type=$CPU_TYPE                       \
+          --caches                                \
+          --last-cache-level=1                    \
+          --little-cpus=1                         \
+          --big-cpus=1                            \
+          --disk=$IMG                             \
+          --kernel=$VMLINUX                       \
+          --bootscript=$BOOT_SCRIPT               \
+          $RESTORE_FROM_ARG
+          #$RESTORE_FROM_ARG
+        #--cf-args                                   \
+          #$CHKPT_RESTORE
 
 # $GEM5_DIST_SH -n $NNODES                                  \
 #               -x $GEM5_EXE                                \

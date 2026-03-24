@@ -66,7 +66,8 @@ for port in sst_ports:
 
 cpu_params = {
     "frequency": cpu_clock_rate,
-    "cmd": " ../../configs/example/sst/riscv_fs.py"
+    "cmd":  "--outdir=pruebaOutdir"
+            + " ../../configs/example/sst/riscv_fs.py"
             + f" --cpu-clock-rate {cpu_clock_rate}"
             + f" --memory-size {memory_size_gem5}",
     "debug_flags": "",
@@ -91,7 +92,7 @@ cache_port.addParams({ "response_receiver_name": sst_ports["cache_port"]})
 # L1 cache
 l1_cache = sst.Component("l1_cache", "memHierarchy.Cache")
 l1_cache.addParams(l1_params)
-
+# l1_cache.addParams({ "debug" : "1", "debug_level" : "10" })
 # Memory
 memctrl = sst.Component("memory", "memHierarchy.MemController")
 # `addr_range_end` should be changed accordingly to memory_size_sst
@@ -132,7 +133,8 @@ cache_mem_link.connect(
 )
 
 # enable Statistics
-stat_params = { "rate" : "0ns" }
+stat_params = { "rate" : "10ms" }
+# stat_params = { "rate" : "0ns" }
 sst.setStatisticLoadLevel(5)
 sst.setStatisticOutput("sst.statOutputTXT", {"filepath" : "./sst-stats.txt"})
 sst.enableAllStatisticsForComponentName("l1_cache", stat_params)
