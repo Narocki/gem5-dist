@@ -1,0 +1,25 @@
+# Usamos la imagen oficial de gem5 con todas las dependencias
+FROM ghcr.io/gem5/devcontainer:latest
+
+# Cambiamos a root para instalar el servidor SSH
+USER root
+
+# Instalamos OpenSSH y algunas herramientas de red
+RUN apt-get update && apt-get install -y openssh-server iproute2 iputils-ping \
+    && rm -rf /var/lib/apt/lists/*
+
+# Configuramos el entorno SSH
+RUN mkdir /var/run/sshd
+# Permitimos root login y deshabilitamos la validación de hosts
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
+RUN echo 'root:gem5' | chpasswd
+
+# Preparamos el directorio para las claves que inyectará Docker Swarm
+RUN mkdir -p /root/.ssh && chmod 700 /root/.ssh
+
+# Exponemos el puerto SSH
+EXPOSE 22
+
+# El comando por defecto arranca el demonio SSH
+CMD ["/usr/sbin/sshd", "-D"]

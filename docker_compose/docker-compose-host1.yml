@@ -1,0 +1,47 @@
+---
+services:
+    worker2:
+        image: felixgnarocki/gem5-dist-node:latest
+        privileged: true
+        network_mode: host
+        volumes:
+            - /home/felix/ucm:/workspaces
+            - /dev/kvm:/dev/kvm
+        secrets:
+            - source: ssh_public_key
+              target: authorized_keys
+            - source: ssh_config
+              target: config
+        entrypoint: >
+            bash -c "mkdir -p /root/.ssh /run/sshd &&
+                     cp /run/secrets/authorized_keys /root/.ssh/authorized_keys &&
+                     cp /run/secrets/config /root/.ssh/config &&
+                     chmod 700 /root/.ssh &&
+                     chmod 644 /root/.ssh/authorized_keys /root/.ssh/config &&
+                     /usr/sbin/sshd -D -p 2224"
+
+    worker3:
+        image: felixgnarocki/gem5-dist-node:latest
+        privileged: true
+        network_mode: host
+        volumes:
+            - /home/felix/ucm:/workspaces
+            - /dev/kvm:/dev/kvm
+        secrets:
+            - source: ssh_public_key
+              target: authorized_keys
+            - source: ssh_config
+              target: config
+        entrypoint: >
+            bash -c "mkdir -p /root/.ssh /run/sshd &&
+                     cp /run/secrets/authorized_keys /root/.ssh/authorized_keys &&
+                     cp /run/secrets/config /root/.ssh/config &&
+                     chmod 700 /root/.ssh &&
+                     chmod 644 /root/.ssh/authorized_keys /root/.ssh/config &&
+                     /usr/sbin/sshd -D -p 2225"
+
+secrets:
+    ssh_public_key:
+        file: ./ssh_keys/id_rsa.pub
+    ssh_config:
+        file: ./ssh_keys/config
