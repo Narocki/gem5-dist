@@ -28,33 +28,35 @@ mkdir -p "${RUN_ROOT}"
 echo "[dist-test] Output root: ${RUN_ROOT}"
 
 # Kernel args for stable symbols.
-KERNEL_CMD="random.trust_cpu=on nokaslr"
+KERNEL_CMD="random.trust_cpu=on nokaslr acpi=off"
 
 # Dist link/synchronization tuning.
 ETH_LINK_DELAY="500us"
-ETH_LINK_SPEED="600Gbps"
+ETH_LINK_SPEED="1Gbps"
 SYN_REPEAT="500us"
-SYN_START="100000000000t"
+SYN_START="1t"
 
 # CPU model for stdlib script: atomic|timing|o3|kvm
-CPU_TYPE="timing"
-NUM_CORES=2
+CPU_TYPE=${CPU_TYPE:-"timing"}
+NUM_CORES=${NUM_CORES:-1}
 
 # Optional switch on first workbegin (e.g., just before MPI).
 # Set ENABLE_SWITCH=1 to activate switchable processor mode.
 ENABLE_SWITCH=1
-SWITCH_START_CPU_TYPE="kvm"
-SWITCH_NEXT_CPU_TYPE="atomic"
 
-NNODES=2
+ENABLE_SWITCH=${ENABLE_SWITCH:-0}
+SWITCH_START_CPU_TYPE=${SWITCH_START_CPU_TYPE:-kvm}
+SWITCH_NEXT_CPU_TYPE=${SWITCH_NEXT_CPU_TYPE:-atomic}
+
+NNODES=${NNODES:-2}
 
 # If no cluster allocation is present, everything runs on localhost.
-NNODES=4
+if [ -z "${LSB_MCPU_HOSTS:-}" ]; then
+  LSB_MCPU_HOSTS="127.0.0.1 ${NNODES}"
+fi
 
-LSB_MCPU_HOSTS="192.168.1.75 1 192.168.1.75 1 192.168.1.118 1 192.168.1.118 1"
-SSH_PORTS="2222 2223 2224 2225"
 export LSB_MCPU_HOSTS
-export SSH_PORTS
+export SSH_PORTS=${SSH_PORTS:-}
 
 SWITCH_FS_ARGS=()
 if [[ "${ENABLE_SWITCH}" == "1" ]]; then
