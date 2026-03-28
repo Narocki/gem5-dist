@@ -107,7 +107,7 @@ class X86DistBoard(X86Board):
         # (configs/example/x86/dist_x86.py + fs_x86_dist.py).
         # The MP-table entry there uses IOAPIC pin 17 for the E1000 NIC.
         # Keep that pin here as well.
-        self._nic_interrupt_line = 17
+        self._nic_interrupt_line = 11
 
     @overrides(X86Board)
     def _setup_board(self) -> None:
@@ -167,9 +167,9 @@ class X86DistBoard(X86Board):
         # interrupt as edge-triggered/high-active.
         nic_int_assignment = X86IntelMPIOIntAssignment(
             interrupt_type="INT",
-            polarity="ActiveHigh",
-            trigger="EdgeTrigger",
-            source_bus_id=0,
+            polarity="ActiveLow",
+            trigger="LevelTrigger",
+            source_bus_id=1,
             source_bus_irq=(self._nic_pci_dev << 2) | 0,
             dest_io_apic_id=self.get_processor().get_num_cores(),
             dest_io_apic_intin=self._nic_interrupt_line,
