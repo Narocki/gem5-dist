@@ -1,0 +1,11 @@
+# Per-node summary (single-process gem5)
+# hostSeconds is global for the whole run; per-node hostSeconds below is a proportional estimate by total cycles.
+global.simSeconds 0.853913000
+global.hostSeconds 1295.570000000
+clock.hz 3000000000
+
+node     maxCoreCycles      totalCoreCycles    simSeconds(est)    hostSeconds(est,share)
+node0    2564970077         2564970077         0.854990026        323.987674037         
+node1    2564963551         2564963551         0.854987850        323.986849722         
+node2    2561978189         2561978189         0.853992730        323.609761311         
+node3    2564954567         2564954567         0.854984856        323.985714931         

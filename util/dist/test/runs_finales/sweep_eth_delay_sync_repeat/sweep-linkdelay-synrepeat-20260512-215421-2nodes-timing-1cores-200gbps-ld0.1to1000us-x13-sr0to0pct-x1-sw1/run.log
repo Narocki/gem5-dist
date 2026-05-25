@@ -1,0 +1,58 @@
+[dist-sweep] Detected 32 host CPUs, allowing up to 32 for parallel runs, which means up to 10 parallel cases (with NNODES + 1 processes each).
+[dist-sweep] Master log: /workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/run.log
+[dist-sweep] Summary CSV: /workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/summary.csv
+[dist-sweep] Parallelism: total_cpus=32 max_cpus_for_parallel=32 procs_per_case=NNODES + 1 max_parallel_runs=10
+[dist-sweep] START case_id=0 topology=flat link_delay=1000us syn_repeat=1000000ns port=2210 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/flat/ld_1000us/sr_equal
+[dist-sweep] START case_id=1 topology=hierarchical link_delay=1000us syn_repeat=1000000ns port=2211 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_1000us/sr_equal
+[dist-sweep] START case_id=2 topology=flat link_delay=500us syn_repeat=500000ns port=2212 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/flat/ld_500us/sr_equal
+[dist-sweep] START case_id=3 topology=hierarchical link_delay=500us syn_repeat=500000ns port=2213 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_500us/sr_equal
+[dist-sweep] START case_id=5 topology=hierarchical link_delay=250us syn_repeat=250000ns port=2215 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_250us/sr_equal
+[dist-sweep] START case_id=4 topology=flat link_delay=250us syn_repeat=250000ns port=2214 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/flat/ld_250us/sr_equal
+[dist-sweep] START case_id=6 topology=flat link_delay=125us syn_repeat=125000ns port=2216 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/flat/ld_125us/sr_equal
+[dist-sweep] START case_id=7 topology=hierarchical link_delay=125us syn_repeat=125000ns port=2217 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_125us/sr_equal
+[dist-sweep] START case_id=8 topology=flat link_delay=50us syn_repeat=50000ns port=2218 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/flat/ld_50us/sr_equal
+[dist-sweep] START case_id=9 topology=hierarchical link_delay=50us syn_repeat=50000ns port=2219 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_50us/sr_equal
+[dist-sweep] DONE topology=flat link_delay=50us syn_repeat=50000ns
+[dist-sweep] DONE topology=flat link_delay=125us syn_repeat=125000ns
+[dist-sweep] START case_id=11 topology=hierarchical link_delay=20us syn_repeat=20000ns port=2221 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_20us/sr_equal
+[dist-sweep] START case_id=10 topology=flat link_delay=20us syn_repeat=20000ns port=2220 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/flat/ld_20us/sr_equal
+[dist-sweep] DONE topology=hierarchical link_delay=50us syn_repeat=50000ns
+[dist-sweep] START case_id=12 topology=flat link_delay=10us syn_repeat=10000ns port=2222 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/flat/ld_10us/sr_equal
+[dist-sweep] DONE topology=flat link_delay=250us syn_repeat=250000ns
+[dist-sweep] DONE topology=hierarchical link_delay=125us syn_repeat=125000ns
+[dist-sweep] START case_id=13 topology=hierarchical link_delay=10us syn_repeat=10000ns port=2223 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_10us/sr_equal
+[dist-sweep] START case_id=14 topology=flat link_delay=5us syn_repeat=5000ns port=2224 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/flat/ld_5us/sr_equal
+[dist-sweep] DONE topology=flat link_delay=500us syn_repeat=500000ns
+[dist-sweep] START case_id=15 topology=hierarchical link_delay=5us syn_repeat=5000ns port=2225 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_5us/sr_equal
+[dist-sweep] DONE topology=hierarchical link_delay=250us syn_repeat=250000ns
+[dist-sweep] START case_id=16 topology=flat link_delay=2us syn_repeat=2000ns port=2226 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/flat/ld_2us/sr_equal
+[dist-sweep] DONE topology=hierarchical link_delay=500us syn_repeat=500000ns
+[dist-sweep] DONE topology=flat link_delay=1000us syn_repeat=1000000ns
+[dist-sweep] START case_id=17 topology=hierarchical link_delay=2us syn_repeat=2000ns port=2227 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_2us/sr_equal
+[dist-sweep] START case_id=18 topology=flat link_delay=1us syn_repeat=1000ns port=2228 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/flat/ld_1us/sr_equal
+[dist-sweep] DONE topology=hierarchical link_delay=20us syn_repeat=20000ns
+[dist-sweep] DONE topology=flat link_delay=20us syn_repeat=20000ns
+[dist-sweep] START case_id=19 topology=hierarchical link_delay=1us syn_repeat=1000ns port=2229 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_1us/sr_equal
+[dist-sweep] START case_id=20 topology=flat link_delay=0.5us syn_repeat=500ns port=2230 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/flat/ld_0.5us/sr_equal
+[dist-sweep] DONE topology=flat link_delay=10us syn_repeat=10000ns
+[dist-sweep] START case_id=21 topology=hierarchical link_delay=0.5us syn_repeat=500ns port=2231 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_0.5us/sr_equal
+[dist-sweep] DONE topology=hierarchical link_delay=10us syn_repeat=10000ns
+[dist-sweep] START case_id=22 topology=flat link_delay=0.2us syn_repeat=200ns port=2232 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/flat/ld_0.2us/sr_equal
+[dist-sweep] DONE topology=flat link_delay=5us syn_repeat=5000ns
+[dist-sweep] START case_id=23 topology=hierarchical link_delay=0.2us syn_repeat=200ns port=2233 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_0.2us/sr_equal
+[dist-sweep] DONE topology=hierarchical link_delay=5us syn_repeat=5000ns
+[dist-sweep] START case_id=24 topology=flat link_delay=0.1us syn_repeat=100ns port=2234 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/flat/ld_0.1us/sr_equal
+[dist-sweep] DONE topology=flat link_delay=2us syn_repeat=2000ns
+[dist-sweep] START case_id=25 topology=hierarchical link_delay=0.1us syn_repeat=100ns port=2235 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_0.1us/sr_equal
+[dist-sweep] DONE topology=hierarchical link_delay=1000us syn_repeat=1000000ns
+[dist-sweep] DONE topology=hierarchical link_delay=2us syn_repeat=2000ns
+[dist-sweep] DONE topology=flat link_delay=1us syn_repeat=1000ns
+[dist-sweep] DONE topology=hierarchical link_delay=1us syn_repeat=1000ns
+[dist-sweep] DONE topology=flat link_delay=0.5us syn_repeat=500ns
+[dist-sweep] DONE topology=hierarchical link_delay=0.5us syn_repeat=500ns
+[dist-sweep] DONE topology=flat link_delay=0.2us syn_repeat=200ns
+[dist-sweep] DONE topology=hierarchical link_delay=0.2us syn_repeat=200ns
+[dist-sweep] DONE topology=flat link_delay=0.1us syn_repeat=100ns
+[dist-sweep] DONE topology=hierarchical link_delay=0.1us syn_repeat=100ns
+[dist-sweep] Finished all runs.
+[dist-sweep] See summary: /workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/summary.csv

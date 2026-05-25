@@ -1,0 +1,85 @@
+Global frequency set at 1000000000000 ticks per second
+src/dev/net/tcp_iface.cc:97: info: tcp_iface listening on port 2210
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:0 -> (node:0, iface:0))
+src/dev/net/dist_iface.cc:73: info: Next dist synchronisation tick is changed to 7000000000000.
+src/dev/net/dist_iface.cc:81: info: Dist synchronisation interval is changed to 200000000.
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:1 -> (node:1, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:2 -> (node:2, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:3 -> (node:3, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:4 -> (node:4, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:5 -> (node:5, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:6 -> (node:6, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:7 -> (node:7, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:8 -> (node:8, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:9 -> (node:9, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:10 -> (node:10, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:11 -> (node:11, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:12 -> (node:12, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:13 -> (node:13, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:14 -> (node:14, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:15 -> (node:15, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:16 -> (node:16, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:17 -> (node:17, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:18 -> (node:18, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:19 -> (node:19, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:20 -> (node:20, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:21 -> (node:21, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:22 -> (node:22, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:23 -> (node:23, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:24 -> (node:24, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:25 -> (node:25, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:26 -> (node:26, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:27 -> (node:27, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:28 -> (node:28, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:29 -> (node:29, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:30 -> (node:30, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:31 -> (node:31, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:32 -> (node:32, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:33 -> (node:33, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:34 -> (node:34, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:35 -> (node:35, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:36 -> (node:36, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:37 -> (node:37, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:38 -> (node:38, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:39 -> (node:39, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:40 -> (node:40, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:41 -> (node:41, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:42 -> (node:42, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:43 -> (node:43, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:44 -> (node:44, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:45 -> (node:45, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:46 -> (node:46, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:47 -> (node:47, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:48 -> (node:48, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:49 -> (node:49, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:50 -> (node:50, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:51 -> (node:51, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:52 -> (node:52, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:53 -> (node:53, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:54 -> (node:54, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:55 -> (node:55, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:56 -> (node:56, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:57 -> (node:57, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:58 -> (node:58, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:59 -> (node:59, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:60 -> (node:60, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:61 -> (node:61, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:62 -> (node:62, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:63 -> (node:63, iface:0))
+src/dev/net/dist_iface.cc:362: info: Dist sync scheduled at 7000000000000 and repeats 200000000
+gem5 Simulator System.  https://www.gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 version 25.0.0.1
+gem5 compiled Mar 28 2026 11:10:42
+gem5 started Apr  7 2026 19:18:32
+gem5 executing on artecsvm003, pid 44535
+command line: /workspaces/gem5/util/dist/test/./../../../build/X86/gem5.opt -d /workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/multiple-switches-64-nodes-0-leaf-20260407-191832/m5out.switch --listener-mode=off /workspaces/gem5/configs/example/gem5_library/x86-dist-stdlib.py --dist-sync-start=7s --dist-sync-repeat=200us --ethernet-linkdelay=200us --ethernet-linkspeed=1Gbps --checkpoint-dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/multiple-switches-64-nodes-0-leaf-20260407-191832/m5out.switch --is-switch --dist-size=64 --dist-server-port=2210
+
+Running in switch mode
+exit request from gem5 peers @ 48907000000000
+src/dev/net/tcp_iface.cc:292: info: recv(): Connection closed
+src/dev/net/tcp_iface.cc:292: info: recv(): Connection closed
+src/dev/net/tcp_iface.cc:292: info: recv(): Connection closed
+src/dev/net/tcp_iface.cc:292: info: recv(): Connection closed
+src/dev/net/tcp_iface.cc:292: info: recv(): Connection closed

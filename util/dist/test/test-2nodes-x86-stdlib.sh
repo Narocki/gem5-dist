@@ -14,6 +14,10 @@ set -euo pipefail
 
 GEM5_DIR=$(pwd)/$(dirname $0)/../../..
 
+# Default M5_PATH for this workspace if it is not exported by the user.
+M5_PATH=${M5_PATH:-/workspaces/gem5}
+export M5_PATH
+
 IMG=${M5_PATH}/disks/x86-ubuntu-22.04-img-20250731
 VMLINUX=${M5_PATH}/binaries/x86-linux-kernel-5.15.180
 BOOT_SCRIPT=${GEM5_DIR}/util/dist/test/simple_bootscript_igb.rcS
@@ -22,23 +26,31 @@ GEM5_EXE=${GEM5_DIR}/build/X86/gem5.opt
 GEM5_DIST_SH=${GEM5_DIR}/util/dist/gem5-dist-x86-stdlib.sh
 
 # Fresh output root per execution (so m5out.* are always new and easy to find).
+RUN_TAG="debug_remote"
 RUN_TAG=${RUN_TAG:-$(date +%Y%m%d-%H%M%S)}
 RUN_ROOT=${GEM5_DIR}/util/dist/test/runs/${RUN_TAG}
 mkdir -p "${RUN_ROOT}"
 echo "[dist-test] Output root: ${RUN_ROOT}"
 
 # Kernel args for stable symbols.
-KERNEL_CMD="random.trust_cpu=on nokaslr acpi=off"
+KERNEL_CMD="random.trust_cpu=on nokaslr"
 
 # Dist link/synchronization tuning.
 ETH_LINK_DELAY="500us"
 ETH_LINK_SPEED="1Gbps"
 SYN_REPEAT="500us"
-SYN_START="1t"
+SYN_START="7400040006400t"
+SYN_START="0t"
 
 # CPU model for stdlib script: atomic|timing|o3|kvm
 CPU_TYPE=${CPU_TYPE:-"timing"}
 NUM_CORES=${NUM_CORES:-1}
+
+# Optional debug flags for gem5, e.g.:
+#   DEBUG_FLAGS="DistEthernet,DistSync"
+#DEBUG_FLAGS="Interrupt,I8259,LocalApic"
+DEBUG_FLAGS=${DEBUG_FLAGS:-}
+
 
 # Optional switch on first workbegin (e.g., just before MPI).
 # Set ENABLE_SWITCH=1 to activate switchable processor mode.
@@ -49,14 +61,14 @@ SWITCH_START_CPU_TYPE=${SWITCH_START_CPU_TYPE:-kvm}
 SWITCH_NEXT_CPU_TYPE=${SWITCH_NEXT_CPU_TYPE:-atomic}
 
 NNODES=${NNODES:-2}
+NNODES=4
+SWITCH_NEXT_CPU_TYPE="o3"
 
 # If no cluster allocation is present, everything runs on localhost.
 if [ -z "${LSB_MCPU_HOSTS:-}" ]; then
   LSB_MCPU_HOSTS="127.0.0.1 ${NNODES}"
 fi
 
-export LSB_MCPU_HOSTS
-export SSH_PORTS=${SSH_PORTS:-}
 
 SWITCH_FS_ARGS=()
 if [[ "${ENABLE_SWITCH}" == "1" ]]; then
@@ -65,6 +77,14 @@ if [[ "${ENABLE_SWITCH}" == "1" ]]; then
     --switch-start-cpu-type=${SWITCH_START_CPU_TYPE}
     --switch-next-cpu-type=${SWITCH_NEXT_CPU_TYPE}
   )
+fi
+
+M5_ARGS=(
+  --listener-mode=off
+)
+
+if [[ -n "${DEBUG_FLAGS}" ]]; then
+  M5_ARGS+=(--debug-flags=${DEBUG_FLAGS})
 fi
 
 ${GEM5_DIST_SH} -n ${NNODES}                                \
@@ -79,7 +99,7 @@ ${GEM5_DIST_SH} -n ${NNODES}                                \
       --ethernet-linkdelay=${ETH_LINK_DELAY}               \
       --ethernet-linkspeed=${ETH_LINK_SPEED}               \
     --m5-args                                               \
-      --listener-mode=off                                   \
+      "${M5_ARGS[@]}"                                      \
     --fs-args                                               \
       --dist-sync-start=${SYN_START}                       \
       --dist-sync-repeat=${SYN_REPEAT}                     \
@@ -87,7 +107,7 @@ ${GEM5_DIST_SH} -n ${NNODES}                                \
       --ethernet-linkspeed=${ETH_LINK_SPEED}               \
       --cpu-type=${CPU_TYPE}                               \
       --num-cores=${NUM_CORES}                             \
-      ${SWITCH_FS_ARGS[@]}                                 \
+      "${SWITCH_FS_ARGS[@]}"                              \
       --root=/dev/sda2                                     \
       --disk=${IMG}                                         \
       --kernel=${VMLINUX}                                   \

@@ -210,6 +210,26 @@ def _add_node_args(parser: argparse.ArgumentParser) -> None:
             "--switch-on-workbegin is enabled."
         ),
     )
+    parser.add_argument(
+        "--kvm-dist-allow-smp",
+        action="store_true",
+        help=(
+            "Allow KVM + dist-gem5 with more than one core (experimental). "
+            "Without this flag, KVM in distributed mode is forced to 1 core "
+            "for stability."
+        ),
+    )
+    parser.add_argument(
+        "--kvm-dist-eventq-strategy",
+        type=str,
+        choices=["shared", "separate"],
+        default="shared",
+        help=(
+            "Event queue strategy for KVM + dist-gem5. 'shared' keeps all "
+            "CPU-side objects on eventq 0; 'separate' assigns one event queue "
+            "per KVM core (stdlib default)."
+        ),
+    )
 
 
 def _run_loop(
@@ -285,10 +305,16 @@ def _build_node(
     )
 
     effective_cores = options.num_cores
-    if start_cpu_type == "kvm" and options.num_cores > 1:
+    if (
+        options.dist
+        and start_cpu_type == "kvm"
+        and options.num_cores > 1
+        and not options.kvm_dist_allow_smp
+    ):
         warn(
             "KVM + x86 dist may hang during SMP bring-up; forcing "
-            "--num-cores=1 for stability."
+            "--num-cores=1 for stability. Use --kvm-dist-allow-smp "
+            "to enable experimental multi-core KVM."
         )
         effective_cores = 1
 
@@ -382,19 +408,24 @@ def _build_node(
     root = board._pre_instantiate(full_system=True)
 
     # Dist sync uses a global event object constructed before instantiate.
-    # With KVM, the stdlib processor spreads CPUs across multiple event queues,
-    # which can cause dist global-sync startup assertions. Keep all CPU-side
-    # objects on queue 0 for distributed runs.
+    # KVM + dist-gem5 is sensitive to event queue placement during SMP boot.
+    # Keep a switchable policy for experimentation.
     if options.dist and start_cpu_type == "kvm":
-        warn(
-            "KVM + dist-gem5: forcing CPUs onto eventq 0 to avoid "
-            "distributed sync startup failure."
-        )
-        for core in board.get_processor().get_cores():
-            simobj = core.get_simobject()
-            for obj in simobj.descendants():
-                obj.eventq_index = 0
-            simobj.eventq_index = 0
+        if options.kvm_dist_eventq_strategy == "shared":
+            warn(
+                "KVM + dist-gem5: using shared eventq strategy "
+                "(all CPU-side objects on eventq 0)."
+            )
+            for core in board.get_processor().get_cores():
+                simobj = core.get_simobject()
+                for obj in simobj.descendants():
+                    obj.eventq_index = 0
+                simobj.eventq_index = 0
+        else:
+            warn(
+                "KVM + dist-gem5: using separate eventq strategy "
+                "(one queue per KVM core, stdlib default)."
+            )
 
     return root, switchable_processor
 

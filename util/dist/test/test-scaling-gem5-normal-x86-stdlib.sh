@@ -14,6 +14,9 @@ set -euo pipefail
 
 GEM5_DIR=$(pwd)/$(dirname "$0")/../../..
 
+M5_PATH=${M5_PATH:-/workspaces/gem5}
+export M5_PATH
+
 IMG=${M5_PATH}/disks/x86-ubuntu-22.04-img-20250731
 VMLINUX=${M5_PATH}/binaries/x86-linux-kernel-5.15.180
 BOOT_SCRIPT=${GEM5_DIR}/util/dist/test/simple_bootscript_igb.rcS
@@ -21,14 +24,14 @@ BOOT_SCRIPT=${GEM5_DIR}/util/dist/test/simple_bootscript_igb.rcS
 GEM5_EXE=${GEM5_DIR}/build/X86/gem5.opt
 FS_CONFIG=${GEM5_DIR}/configs/example/gem5_library/x86-stdlib.py
 
-RUN_TAG="$(date +%Y%m%d-%H%M%S)_14_16_24_cores_2nd_run"
+RUN_TAG="$(date +%Y%m%d-%H%M%S)_63_cores"
 
 RUN_TAG=${RUN_TAG:-$(date +%Y%m%d-%H%M%S)}
 RUN_ROOT=${GEM5_DIR}/util/dist/test/runs-gem5-normal/${RUN_TAG}
 mkdir -p "${RUN_ROOT}"
 echo "[gem5-normal-scaling] Output root: ${RUN_ROOT}"
 
-KERNEL_CMD=${KERNEL_CMD:-"random.trust_cpu=on nokaslr acpi=off"}
+KERNEL_CMD=${KERNEL_CMD:-"random.trust_cpu=on nokaslr nmi_watchdog=0 acpi=off lpj=50000000"}
 CPU_TYPE=${CPU_TYPE:-timing}
 CLK_FREQ=${CLK_FREQ:-3GHz}
 MEM_SIZE=${MEM_SIZE:-2GiB}
@@ -36,9 +39,14 @@ ROOT_DEV=${ROOT_DEV:-/dev/sda2}
 
 # Default sweep for scaling study.
 # CORES_LIST=${CORES_LIST:-"2 4 6 8 10 12 14 16"}
-CORES_LIST=${CORES_LIST:-"14 16 24"}
+# CORES_LIST=(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64)
+CORES_LIST=${CORES_LIST:-"2"}
 
 ENABLE_SWITCH=1
+SWITCH_START_CPU_TYPE="atomic"
+SWITCH_NEXT_CPU_TYPE="o3"
+CORES_LIST="63"
+RUN_TAG="memory"
 
 # Optional switchable-CPU mode: ENABLE_SWITCH=1 for KVM->Atomic/Timing flow.
 ENABLE_SWITCH=${ENABLE_SWITCH:-0}
@@ -79,6 +87,11 @@ for NCORES in ${CORES_LIST}; do
       "${SWITCH_ARGS[@]:-}"
   } 2>&1 | tee -a "${CORE_LOG}"
 
+  # Esperar si hay 2 procesos ejecutándose
+  # if (( $(jobs -r -p | wc -l) >= 1 )); then
+  #   wait -n
+  # fi
 done
 
+wait  # Esperar a que terminen todos los procesos restantes
 echo "[gem5-normal-scaling] Done. Results in ${RUN_ROOT}"

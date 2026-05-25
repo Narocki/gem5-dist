@@ -1,0 +1,13 @@
+topology,link_delay,sync_repeat,delay_us,syn_repeat_bonus_pct,exit_code,output_dir
+flat,1000us,1000000ns,1000,0,0,/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260429-163351-8nodes-scatter-1000us-20us-1024size-2cores/flat/ld_1000us/sr_equal
+hierarchical,1000us,1000000ns,1000,0,0,/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260429-163351-8nodes-scatter-1000us-20us-1024size-2cores/hierarchical/ld_1000us/sr_equal
+flat,500us,500000ns,500,0,0,/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260429-163351-8nodes-scatter-1000us-20us-1024size-2cores/flat/ld_500us/sr_equal
+hierarchical,500us,500000ns,500,0,0,/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260429-163351-8nodes-scatter-1000us-20us-1024size-2cores/hierarchical/ld_500us/sr_equal
+flat,200us,200000ns,200,0,0,/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260429-163351-8nodes-scatter-1000us-20us-1024size-2cores/flat/ld_200us/sr_equal
+hierarchical,200us,200000ns,200,0,0,/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260429-163351-8nodes-scatter-1000us-20us-1024size-2cores/hierarchical/ld_200us/sr_equal
+flat,100us,100000ns,100,0,0,/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260429-163351-8nodes-scatter-1000us-20us-1024size-2cores/flat/ld_100us/sr_equal
+hierarchical,100us,100000ns,100,0,0,/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260429-163351-8nodes-scatter-1000us-20us-1024size-2cores/hierarchical/ld_100us/sr_equal
+flat,50us,50000ns,50,0,0,/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260429-163351-8nodes-scatter-1000us-20us-1024size-2cores/flat/ld_50us/sr_equal
+hierarchical,50us,50000ns,50,0,0,/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260429-163351-8nodes-scatter-1000us-20us-1024size-2cores/hierarchical/ld_50us/sr_equal
+flat,20us,20000ns,20,0,0,/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260429-163351-8nodes-scatter-1000us-20us-1024size-2cores/flat/ld_20us/sr_equal
+hierarchical,20us,20000ns,20,0,0,/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260429-163351-8nodes-scatter-1000us-20us-1024size-2cores/hierarchical/ld_20us/sr_equal

@@ -622,7 +622,6 @@ DistIface::DistIface(unsigned dist_rank,
             sync = new SyncSwitch(num_nodes);
         else
             sync = new SyncNode();
-        syncEvent = new SyncEvent();
         primary = this;
         isPrimary = true;
     }
@@ -784,6 +783,13 @@ DistIface::unserialize(CheckpointIn &cp)
 void
 DistIface::init(const Event *done_event, Tick link_delay)
 {
+    // Build SyncEvent here instead of the constructor.
+    // GlobalSyncEvent captures the number of main event queues at creation
+    // time; creating it in the ctor can be too early when CPUs later change
+    // event queue placement (e.g., KVM multi-core configurations).
+    if (this == primary && syncEvent == nullptr)
+        syncEvent = new SyncEvent();
+
     // Init hook for the underlaying message transport to setup/finalize
     // communication channels
     initTransport();

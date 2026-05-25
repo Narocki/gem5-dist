@@ -1,0 +1,23 @@
+	Command being timed: "/workspaces/gem5/util/dist/test/./../../../build/X86/gem5.opt -d /workspaces/gem5/util/dist/test/./../../../util/dist/test/runs-gem5-normal/20260407-235443_63_cores/cores-4 /workspaces/gem5/util/dist/test/./../../../configs/example/gem5_library/x86-stdlib.py --kernel=/workspaces/gem5/binaries/x86-linux-kernel-5.15.180 --disk=/workspaces/gem5/disks/x86-ubuntu-22.04-img-20250731 --readfile=/workspaces/gem5/util/dist/test/./../../../util/dist/test/simple_bootscript_igb.rcS --cpu-type=timing --num-cores=4 --clk-freq=3GHz --mem-size=2GiB --root=/dev/sda2 --kernel-cmd random.trust_cpu=on nokaslr acpi=off --continue-after-panic --switch-on-workbegin --switch-start-cpu-type=kvm --switch-next-cpu-type=atomic"
+	User time (seconds): 1432.90
+	System time (seconds): 15.21
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 24:01.56
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 817436
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 137
+	Minor (reclaiming a frame) page faults: 136713
+	Voluntary context switches: 172254
+	Involuntary context switches: 1662
+	Swaps: 0
+	File system inputs: 2968
+	File system outputs: 3592
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

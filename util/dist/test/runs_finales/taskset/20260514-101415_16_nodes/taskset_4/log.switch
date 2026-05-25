@@ -1,0 +1,38 @@
+Global frequency set at 1000000000000 ticks per second
+src/dev/net/tcp_iface.cc:97: info: tcp_iface listening on port 2210
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:0 -> (node:0, iface:0))
+src/dev/net/dist_iface.cc:73: info: Next dist synchronisation tick is changed to 1.
+src/dev/net/dist_iface.cc:81: info: Dist synchronisation interval is changed to 500000000.
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:1 -> (node:1, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:2 -> (node:2, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:3 -> (node:3, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:4 -> (node:4, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:5 -> (node:5, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:6 -> (node:6, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:7 -> (node:7, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:8 -> (node:8, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:9 -> (node:9, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:10 -> (node:10, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:11 -> (node:11, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:12 -> (node:12, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:13 -> (node:13, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:14 -> (node:14, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:15 -> (node:15, iface:0))
+src/dev/net/dist_iface.cc:362: info: Dist sync scheduled at 1 and repeats 500000000
+gem5 Simulator System.  https://www.gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 version 25.0.0.1
+gem5 compiled Apr 12 2026 16:58:41
+gem5 started May 14 2026 10:14:16
+gem5 executing on fedora-f, pid 93
+command line: /workspaces/gem5/util/dist/test/./../../../build/X86/gem5.opt -d /workspaces/gem5/util/dist/test/./../../../util/dist/test/taskset/20260514-101415/taskset_4/m5out.switch --listener-mode=off /workspaces/gem5/configs/example/gem5_library/x86-dist-stdlib.py --dist-sync-start=1t --dist-sync-repeat=500us --ethernet-linkdelay=500us --ethernet-linkspeed=1Gbps --checkpoint-dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/taskset/20260514-101415/taskset_4/m5out.switch --is-switch --dist-size=16 --dist-server-port=2210
+
+Running in switch mode
+exit request from gem5 peers @ 12575500000001
+src/dev/net/tcp_iface.cc:292: info: recv(): Connection closed
+src/dev/net/tcp_iface.cc:292: info: recv(): Connection closed
+src/dev/net/tcp_iface.cc:292: info: recv(): Connection closed
+src/dev/net/tcp_iface.cc:292: info: recv(): Connection closed
+src/dev/net/tcp_iface.cc:292: info: recv(): Connection closed
+src/dev/net/tcp_iface.cc:292: info: recv(): Connection closed

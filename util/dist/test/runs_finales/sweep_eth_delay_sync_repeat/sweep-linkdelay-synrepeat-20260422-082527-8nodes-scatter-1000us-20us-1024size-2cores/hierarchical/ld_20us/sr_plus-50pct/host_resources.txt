@@ -1,0 +1,23 @@
+	Command being timed: "/workspaces/gem5/util/dist/test/./../../../util/dist/gem5-dist_multiple_switches_x86-stdlib.sh -n 8 -r /workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260422-082527-8nodes-scatter-1000us-20us-1024size-2cores/hierarchical/ld_20us/sr_plus-50pct -c /workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260422-082527-8nodes-scatter-1000us-20us-1024size-2cores/hierarchical/ld_20us/sr_plus-50pct -x /workspaces/gem5/util/dist/test/./../../../build/X86/gem5.opt -p 2221 --num-leaf-switches 2 --nodes-per-switch 4,4 --kernel-cmd random.trust_cpu=on nokaslr --sw-args --dist-sync-start=0s --dist-sync-repeat=10000ns --ethernet-linkdelay=20us --ethernet-linkspeed=1Gbps --trace-internal-links --internal-trace-prefix=/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260422-082527-8nodes-scatter-1000us-20us-1024size-2cores/hierarchical/ld_20us/sr_plus-50pct/internal_sw --internal-trace-maxlen=512 --m5-args --listener-mode=off --fs-args --dist-sync-start=0s --dist-sync-repeat=10000ns --ethernet-linkdelay=20us --ethernet-linkspeed=1Gbps --cpu-type=timing --num-cores=2 --switch-on-workbegin --switch-start-cpu-type=kvm --switch-next-cpu-type=atomic --root=/dev/sda2 --disk=/workspaces/gem5/disks/x86-ubuntu-22.04-img-20250731 --kernel=/workspaces/gem5/binaries/x86-linux-kernel-5.15.180 --readfile=/workspaces/gem5/util/dist/test/./../../../util/dist/test/simple_bootscript_igb.rcS --continue-after-panic"
+	User time (seconds): 3303.31
+	System time (seconds): 377.74
+	Percent of CPU this job got: 251%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 24:23.14
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 491708
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 834021
+	Voluntary context switches: 42937499
+	Involuntary context switches: 203611
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 52520
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

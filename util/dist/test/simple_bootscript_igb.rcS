@@ -22,6 +22,9 @@ case "$PCI_NET_ID" in
         modprobe igb 2>/dev/null || modprobe e1000e 2>/dev/null || modprobe e1000 2>/dev/null || true
         ;;
 esac
+# echo "Dsmeg:"
+# dmesg | grep e1000
+# /sbin/m5 exit 1
 
 sleep 2
 
@@ -32,14 +35,14 @@ for _ in 1 2 3 4 5; do
     sleep 1
 done
 [ -z "$IFACE_BOOT" ] && IFACE_BOOT="eth0"
-ip link show "$IFACE_BOOT" || true
-lspci -v || true
+#ip link show "$IFACE_BOOT" || true
+# lspci -v || true
 
 # --- CONFIGURACIÓN DEL BENCHMARK ---
-#BENCHMARK_BIN="/root/osu_installed/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw"
-#BENCHMARK_ARGS="-x 10 -i 5 -m 0:65536"
-BENCHMARK_BIN="/root/matrix_add"
-BENCHMARK_ARGS=""
+#BENCHMARK_BIN="/root/osu_installed/libexec/osu-micro-benchmarks/mpi/collective/osu_alltoall"
+#BENCHMARK_ARGS="-x 2 -i 10 -m 0:512"
+BENCHMARK_BIN="/root/matrix_add_scatterv_arbitrary_size_check_error"
+BENCHMARK_ARGS="1024"
 # -----------------------------------------------------------------
 # 1. CONFIGURACIÓN DE RED E IDENTIDAD
 # -----------------------------------------------------------------
@@ -50,9 +53,17 @@ if [ -x /usr/sbin/haveged ]; then
     /usr/sbin/haveged -w 1024 -v 1
 fi
 
-MY_RANK=$(/sbin/m5 initparam dist-rank 2>/dev/null || true)
+MY_RANK=${GEM5_DIST_RANK_OVERRIDE:-}
+MY_SIZE=${GEM5_DIST_SIZE_OVERRIDE:-}
+
+if [ -z "$MY_RANK" ]; then
+    MY_RANK=$(/sbin/m5 initparam dist-rank 2>/dev/null || true)
+fi
 [ -z "$MY_RANK" ] && MY_RANK=0
-MY_SIZE=$(/sbin/m5 initparam dist-size 2>/dev/null || true)
+
+if [ -z "$MY_SIZE" ]; then
+    MY_SIZE=$(/sbin/m5 initparam dist-size 2>/dev/null || true)
+fi
 DIST_SIZE_RAW=$MY_SIZE
 
 if [ -z "$MY_RANK" ]; then MY_RANK=0; fi
@@ -101,9 +112,9 @@ for ((i=0; i<MY_SIZE; i++)); do
     ip neigh replace "$PEER_IP" lladdr "$PEER_MAC" dev "$IFACE" nud permanent 2>/dev/null || true
 done
 
-if command -v ethtool >/dev/null 2>&1; then
-    ethtool -K "$IFACE" tso off gso off gro off lro off rx off tx off sg off >/dev/null 2>&1 || true
-fi
+# if command -v ethtool >/dev/null 2>&1; then
+#     ethtool -K "$IFACE" tso off gso off gro off lro off rx off tx off sg off >/dev/null 2>&1 || true
+# fi
 
 echo "127.0.0.1 localhost" > /etc/hosts
 for ((i=0; i<MY_SIZE; i++)); do
@@ -222,7 +233,9 @@ if [ "$MY_RANK" = "0" ]; then
 
 
     export HWLOC_XMLFILE=/tmp/topo.xml
+
     /sbin/m5 resetstats
+    
     if [ "$DIST_MODE" = "1" ]; then
         mpirun \
             --hostfile /tmp/hostfile \

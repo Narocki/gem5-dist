@@ -1,0 +1,20 @@
+Global frequency set at 1000000000000 ticks per second
+src/dev/net/tcp_iface.cc:97: info: tcp_iface listening on port 2211
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:0 -> (node:0, iface:0))
+src/dev/net/dist_iface.cc:73: info: Next dist synchronisation tick is changed to 7000000000000.
+src/dev/net/dist_iface.cc:81: info: Dist synchronisation interval is changed to 200000000.
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:1 -> (node:1, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:2 -> (node:2, iface:0))
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:3 -> (node:3, iface:0))
+src/dev/net/dist_iface.cc:362: info: Dist sync scheduled at 7000000000000 and repeats 200000000
+gem5 Simulator System.  https://www.gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 version 25.0.0.1
+gem5 compiled Mar 28 2026 11:10:42
+gem5 started Apr  7 2026 15:01:19
+gem5 executing on artecsvm003, pid 43223
+command line: /workspaces/gem5/util/dist/test/./../../../build/X86/gem5.opt -d /workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/multiple-switches-4-nodes-0-leaf-20260407-150119/m5out.switch --listener-mode=off /workspaces/gem5/configs/example/gem5_library/x86-dist-stdlib.py --dist-sync-start=7s --dist-sync-repeat=200us --ethernet-linkdelay=200us --ethernet-linkspeed=1Gbps --checkpoint-dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/multiple-switches-4-nodes-0-leaf-20260407-150119/m5out.switch --is-switch --dist-size=4 --dist-server-port=2210
+
+Running in switch mode
+exit request from gem5 peers @ 18174000000000

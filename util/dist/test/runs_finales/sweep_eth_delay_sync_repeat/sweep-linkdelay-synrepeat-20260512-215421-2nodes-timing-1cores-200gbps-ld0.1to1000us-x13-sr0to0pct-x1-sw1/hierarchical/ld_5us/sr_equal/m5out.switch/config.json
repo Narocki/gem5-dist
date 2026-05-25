@@ -1,0 +1,229 @@
+{
+    "type": "Root",
+    "cxx_class": "gem5::Root",
+    "name": null,
+    "path": "root",
+    "eventq_index": 0,
+    "full_system": true,
+    "sim_quantum": 0,
+    "time_sync_enable": false,
+    "time_sync_period": 100000000000,
+    "time_sync_spin_threshold": 100000000,
+    "system": {
+        "type": "EtherSwitch",
+        "cxx_class": "gem5::EtherSwitch",
+        "name": "system",
+        "path": "system",
+        "delay": 0,
+        "delay_var": 0,
+        "dump": {
+            "type": "EtherDump",
+            "cxx_class": "gem5::EtherDump",
+            "name": "dump",
+            "path": "system.dump",
+            "eventq_index": 0,
+            "file": "/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_5us/sr_equal/internal_sw.master_switch.pcap",
+            "maxlen": 512
+        },
+        "eventq_index": 0,
+        "fabric_speed": "800.000000",
+        "output_buffer_size": 1048576,
+        "time_to_live": 10000000000,
+        "leaf_switches": [
+            {
+                "type": "EtherSwitch",
+                "cxx_class": "gem5::EtherSwitch",
+                "name": "leaf_switches0",
+                "path": "system.leaf_switches0",
+                "delay": 0,
+                "delay_var": 0,
+                "dump": {
+                    "type": "EtherDump",
+                    "cxx_class": "gem5::EtherDump",
+                    "name": "dump",
+                    "path": "system.leaf_switches0.dump",
+                    "eventq_index": 0,
+                    "file": "/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_5us/sr_equal/internal_sw.leaf0.switch.pcap",
+                    "maxlen": 512
+                },
+                "eventq_index": 0,
+                "fabric_speed": "800.000000",
+                "output_buffer_size": 1048576,
+                "time_to_live": 10000000000,
+                "interface": {
+                    "role": "ETHERNET",
+                    "peer": [
+                        "system.portlink0.int0",
+                        "system.uplinks0.int0"
+                    ],
+                    "is_source": "False"
+                }
+            },
+            {
+                "type": "EtherSwitch",
+                "cxx_class": "gem5::EtherSwitch",
+                "name": "leaf_switches1",
+                "path": "system.leaf_switches1",
+                "delay": 0,
+                "delay_var": 0,
+                "dump": {
+                    "type": "EtherDump",
+                    "cxx_class": "gem5::EtherDump",
+                    "name": "dump",
+                    "path": "system.leaf_switches1.dump",
+                    "eventq_index": 0,
+                    "file": "/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_5us/sr_equal/internal_sw.leaf1.switch.pcap",
+                    "maxlen": 512
+                },
+                "eventq_index": 0,
+                "fabric_speed": "800.000000",
+                "output_buffer_size": 1048576,
+                "time_to_live": 10000000000,
+                "interface": {
+                    "role": "ETHERNET",
+                    "peer": [
+                        "system.portlink1.int0",
+                        "system.uplinks1.int0"
+                    ],
+                    "is_source": "False"
+                }
+            }
+        ],
+        "portlink": [
+            {
+                "type": "DistEtherLink",
+                "cxx_class": "gem5::DistEtherLink",
+                "name": "portlink0",
+                "path": "system.portlink0",
+                "delay": 5000000,
+                "delay_var": 0,
+                "dist_rank": 0,
+                "dist_size": 2,
+                "dist_sync_on_pseudo_op": false,
+                "dump": {
+                    "type": "EtherDump",
+                    "cxx_class": "gem5::EtherDump",
+                    "name": "dump",
+                    "path": "system.portlink0.dump",
+                    "eventq_index": 0,
+                    "file": "/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_5us/sr_equal/internal_sw.leaf0.port0.to_rank0.pcap",
+                    "maxlen": 512
+                },
+                "eventq_index": 0,
+                "is_switch": true,
+                "num_nodes": 2,
+                "server_name": "127.0.0.1",
+                "server_port": 2225,
+                "speed": "40.000000",
+                "sync_repeat": 5000000,
+                "sync_start": 1,
+                "int0": {
+                    "role": "ETHERNET",
+                    "peer": "system.leaf_switches0.interface[0]",
+                    "is_source": "False"
+                }
+            },
+            {
+                "type": "DistEtherLink",
+                "cxx_class": "gem5::DistEtherLink",
+                "name": "portlink1",
+                "path": "system.portlink1",
+                "delay": 5000000,
+                "delay_var": 0,
+                "dist_rank": 0,
+                "dist_size": 2,
+                "dist_sync_on_pseudo_op": false,
+                "dump": {
+                    "type": "EtherDump",
+                    "cxx_class": "gem5::EtherDump",
+                    "name": "dump",
+                    "path": "system.portlink1.dump",
+                    "eventq_index": 0,
+                    "file": "/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_5us/sr_equal/internal_sw.leaf1.port0.to_rank1.pcap",
+                    "maxlen": 512
+                },
+                "eventq_index": 0,
+                "is_switch": true,
+                "num_nodes": 2,
+                "server_name": "127.0.0.1",
+                "server_port": 2225,
+                "speed": "40.000000",
+                "sync_repeat": 5000000,
+                "sync_start": 1,
+                "int0": {
+                    "role": "ETHERNET",
+                    "peer": "system.leaf_switches1.interface[0]",
+                    "is_source": "False"
+                }
+            }
+        ],
+        "uplinks": [
+            {
+                "type": "EtherLink",
+                "cxx_class": "gem5::EtherLink",
+                "name": "uplinks0",
+                "path": "system.uplinks0",
+                "delay": 5000000,
+                "delay_var": 0,
+                "dump": {
+                    "type": "EtherDump",
+                    "cxx_class": "gem5::EtherDump",
+                    "name": "dump",
+                    "path": "system.uplinks0.dump",
+                    "eventq_index": 0,
+                    "file": "/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_5us/sr_equal/internal_sw.leaf0.uplink.pcap",
+                    "maxlen": 512
+                },
+                "eventq_index": 0,
+                "speed": "40.000000",
+                "int0": {
+                    "role": "ETHERNET",
+                    "peer": "system.leaf_switches0.interface[1]",
+                    "is_source": "False"
+                },
+                "int1": {
+                    "role": "ETHERNET",
+                    "peer": "system.interface[0]",
+                    "is_source": "False"
+                }
+            },
+            {
+                "type": "EtherLink",
+                "cxx_class": "gem5::EtherLink",
+                "name": "uplinks1",
+                "path": "system.uplinks1",
+                "delay": 5000000,
+                "delay_var": 0,
+                "dump": {
+                    "type": "EtherDump",
+                    "cxx_class": "gem5::EtherDump",
+                    "name": "dump",
+                    "path": "system.uplinks1.dump",
+                    "eventq_index": 0,
+                    "file": "/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_5us/sr_equal/internal_sw.leaf1.uplink.pcap",
+                    "maxlen": 512
+                },
+                "eventq_index": 0,
+                "speed": "40.000000",
+                "int0": {
+                    "role": "ETHERNET",
+                    "peer": "system.leaf_switches1.interface[1]",
+                    "is_source": "False"
+                },
+                "int1": {
+                    "role": "ETHERNET",
+                    "peer": "system.interface[1]",
+                    "is_source": "False"
+                }
+            }
+        ],
+        "interface": {
+            "role": "ETHERNET",
+            "peer": [
+                "system.uplinks0.int1",
+                "system.uplinks1.int1"
+            ],
+            "is_source": "False"
+        }
+    }
+}

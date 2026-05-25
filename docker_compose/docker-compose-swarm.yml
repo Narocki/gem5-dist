@@ -1,113 +1,81 @@
----
-version: '3.8'
-
-services:
-    master:
-        image: felixgnarocki/gem5-dist-node:latest
-        privileged: true
-        networks:
-            - gem5_network
-        deploy:
-            placement:
-                constraints:
-                    - node.role == manager
-        secrets:
-            - source: ssh_private_key
-              target: /root/.ssh/id_rsa
-              mode: 0600
-            - source: ssh_public_key
-              target: /root/.ssh/authorized_keys
-              mode: 0600
-        volumes:
-            - /home/felix/ucm:/workspaces # Monta tu código de gem5
-            - type: bind
-              source: /dev/kvm
-              target: /dev/kvm
-    # Mantiene el master vivo para que tú entres a ejecutar los comandos
-        command: /usr/sbin/sshd -D
-        cap_add:
-            - SYS_ADMIN
-            - NET_ADMIN
-
-    worker1:
-        image: felixgnarocki/gem5-dist-node:latest
-        privileged: true
-        networks:
-            - gem5_network
-        secrets:
-            - source: ssh_public_key
-              target: /root/.ssh/authorized_keys
-              mode: 0600
-        volumes:
-            - /home/felix/ucm:/workspaces # Todos los nodos deben ver los mismos archivos
-            - type: bind
-              source: /dev/kvm
-              target: /dev/kvm
-        cap_add:
-            - SYS_ADMIN
-            - NET_ADMIN
-
-    worker2:
-        image: felixgnarocki/gem5-dist-node:latest
-        privileged: true
-        networks:
-            - gem5_network
-        secrets:
-            - source: ssh_public_key
-              target: /root/.ssh/authorized_keys
-              mode: 0600
-        volumes:
-            - /home/felix/ucm:/workspaces # Todos los nodos deben ver los mismos archivos
-            - type: bind
-              source: /dev/kvm
-              target: /dev/kvm
-        cap_add:
-            - SYS_ADMIN
-            - NET_ADMIN
-
-    worker3:
-        image: felixgnarocki/gem5-dist-node:latest
-        privileged: true
-        networks:
-            - gem5_network
-        secrets:
-            - source: ssh_public_key
-              target: /root/.ssh/authorized_keys
-              mode: 0600
-        volumes:
-            - /home/felix/ucm:/workspaces # Todos los nodos deben ver los mismos archivos
-            - type: bind
-              source: /dev/kvm
-              target: /dev/kvm
-        cap_add:
-            - SYS_ADMIN
-            - NET_ADMIN
-
-    worker4:
-        image: felixgnarocki/gem5-dist-node:latest
-        privileged: true
-        networks:
-            - gem5_network
-        secrets:
-            - source: ssh_public_key
-              target: /root/.ssh/authorized_keys
-              mode: 0600
-        volumes:
-            - /home/felix/ucm:/workspaces # Todos los nodos deben ver los mismos archivos
-            - type: bind
-              source: /dev/kvm
-              target: /dev/kvm
-        cap_add:
-            - SYS_ADMIN
-            - NET_ADMIN
+version: '3.9'
 
 networks:
-    gem5_network:
-        driver: overlay
-        attachable: true
+  gem5_net:
+    driver: overlay
+    attachable: true
+
+services:
+  master:
+    image: felixgnarocki/gem5-dist-node:latest
+    networks:
+      - gem5_net
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    volumes:
+      - /home/felix/ucm:/workspaces
+      - /dev/kvm:/dev/kvm
+    secrets:
+      - source: ssh_private_key
+        target: id_rsa
+      - source: ssh_public_key
+        target: authorized_keys
+      - source: ssh_config
+        target: config
+    entrypoint: >
+      bash -c "chmod 666 /dev/kvm 2>/dev/null || true &&
+               mkdir -p /root/.ssh /run/sshd &&
+               ssh-keygen -A &&
+               [ -f /run/secrets/id_rsa ] && cp /run/secrets/id_rsa /root/.ssh/id_rsa || echo 'No private key' &&
+               [ -f /run/secrets/authorized_keys ] && cp /run/secrets/authorized_keys /root/.ssh/authorized_keys &&
+               [ -f /run/secrets/config ] && cp /run/secrets/config /root/.ssh/config &&
+               chown -R root:root /root/.ssh &&
+               chmod 700 /root/.ssh &&
+               [ -f /root/.ssh/id_rsa ] && chmod 600 /root/.ssh/id_rsa &&
+               chmod 644 /root/.ssh/authorized_keys /root/.ssh/config 2>/dev/null || true &&
+               exec /usr/sbin/sshd -D -p 22 -o 'PermitRootLogin=yes' -o 'UseDNS=no' -o 'UsePAM=no' -o 'StrictModes=no'"
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+
+  worker2:
+    image: felixgnarocki/gem5-dist-node:latest
+    networks:
+      - gem5_net
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    volumes:
+      - /home/felix/ucm:/workspaces
+      - /dev/kvm:/dev/kvm
+    secrets:
+      - source: ssh_public_key
+        target: authorized_keys
+      - source: ssh_config
+        target: config
+    entrypoint: >
+      bash -c "chmod 666 /dev/kvm 2>/dev/null || true &&
+               mkdir -p /root/.ssh /run/sshd &&
+               ssh-keygen -A &&
+               [ -f /run/secrets/id_rsa ] && cp /run/secrets/id_rsa /root/.ssh/id_rsa || echo 'No private key' &&
+               [ -f /run/secrets/authorized_keys ] && cp /run/secrets/authorized_keys /root/.ssh/authorized_keys &&
+               [ -f /run/secrets/config ] && cp /run/secrets/config /root/.ssh/config &&
+               chown -R root:root /root/.ssh &&
+               chmod 700 /root/.ssh &&
+               [ -f /root/.ssh/id_rsa ] && chmod 600 /root/.ssh/id_rsa &&
+               chmod 644 /root/.ssh/authorized_keys /root/.ssh/config 2>/dev/null || true &&
+               exec /usr/sbin/sshd -D -p 22 -o 'PermitRootLogin=yes' -o 'UseDNS=no' -o 'UsePAM=no' -o 'StrictModes=no'"
+    deploy:
+      placement:
+        constraints:
+          - node.role == worker
 
 secrets:
-    ssh_private_key:
-        file: ./ssh_keys/id_rsa
-    ssh_public_key:
-        file: ./ssh_keys/id_rsa.pub
+  ssh_private_key:
+    file: ./ssh_keys/id_rsa
+  ssh_public_key:
+    file: ./ssh_keys/id_rsa.pub
+  ssh_config:
+    file: ./ssh_keys/config

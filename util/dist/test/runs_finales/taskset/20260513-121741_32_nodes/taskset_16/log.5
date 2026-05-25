@@ -1,0 +1,114 @@
+warn: Base 10 memory/cache size 32kB will be cast to base 2 size 32KiB.
+warn: Base 10 memory/cache size 32kB will be cast to base 2 size 32KiB.
+Global frequency set at 1000000000000 ticks per second
+warn: KVM + dist-gem5: using shared eventq strategy (all CPU-side objects on eventq 0).
+warn: board.workload.acpi_description_table_pointer.rsdt adopting orphan SimObject param 'entries'
+src/mem/dram_interface.cc:690: warn: DRAM device capacity (8192 Mbytes) does not match the address range assigned (2048 Mbytes)
+src/sim/kernel_workload.cc:46: info: kernel located at: /workspaces/gem5//binaries/x86-linux-kernel-5.15.180
+      0: board.pc.south_bridge.cmos.rtc: Real-time clock set to Sun Jan  1 00:00:00 2012
+src/dev/serial/terminal.cc:174: warn: Sockets disabled, not accepting terminal connections
+src/base/statistics.hh:279: warn: One of the stats is a legacy stat. Legacy stat is a stat that does not belong to any statistics::Group. Legacy stat is deprecated.
+src/dev/net/tcp_iface.cc:201: info: Link okay  (iface:0 -> switch iface:5)
+src/dev/net/dist_iface.cc:73: info: Next dist synchronisation tick is changed to 1.
+src/dev/net/dist_iface.cc:81: info: Dist synchronisation interval is changed to 500000000.
+src/dev/intel_8254_timer.cc:128: warn: Reading current count from inactive timer.
+src/base/remote_gdb.cc:418: warn: Sockets disabled, not accepting gdb connections
+src/dev/net/dist_iface.cc:362: info: Dist sync scheduled at 1 and repeats 500000000
+src/cpu/kvm/base.cc:169: info: KVM: Coalesced MMIO disabled by config.
+src/cpu/kvm/base.cc:591: hack: Pretending totalOps is equivalent to totalInsts()
+gem5 Simulator System.  https://www.gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 version 25.0.0.1
+gem5 compiled Apr 12 2026 16:58:41
+gem5 started May 13 2026 21:09:07
+gem5 executing on fedora-f, pid 18383
+command line: /workspaces/gem5/util/dist/test/./../../../build/X86/gem5.opt -d /workspaces/gem5/util/dist/test/./../../../util/dist/test/taskset/20260513-121741/taskset_16/m5out.5 --listener-mode=off /workspaces/gem5//configs/example/gem5_library/x86-dist-stdlib.py --dist-sync-start=1t --dist-sync-repeat=500us --ethernet-linkdelay=500us --ethernet-linkspeed=1Gbps --cpu-type=timing --num-cores=1 --switch-on-workbegin --switch-start-cpu-type=kvm --switch-next-cpu-type=atomic --root=/dev/sda2 --disk=/workspaces/gem5//disks/x86-ubuntu-22.04-img-20250731 --kernel=/workspaces/gem5//binaries/x86-linux-kernel-5.15.180 --readfile=/workspaces/gem5/util/dist/test/./../../../util/dist/test/simple_bootscript_igb.rcS --continue-after-panic '--kernel-cmd=random.trust_cpu=on nokaslr' --checkpoint-dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/taskset/20260513-121741/taskset_16/m5out.5 --dist --dist-rank=5 --dist-size=32 --dist-server-name=127.0.0.1 --dist-server-port=2210 --etherdump=/workspaces/gem5/util/dist/test/./../../../util/dist/test/taskset/20260513-121741/taskset_16/m5out.5/eth0.pcap
+
+Running in node mode
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x48) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xda0) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x6a0) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x6a2) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x6a4) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x6a5) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x6a6) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x6a7) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x6a8) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xc0010200) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xc0010202) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xc0010204) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xc0010206) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xc0010208) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xc001020a) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xc0010201) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xc0010203) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xc0010205) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xc0010207) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xc0010209) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xc001020b) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xc0000301) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xc0000300) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xc0000302) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xc0000303) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x12) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x11) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x4b564d01) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x4b564d00) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000000) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000001) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000020) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000021) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000022) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000023) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000100) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000101) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000102) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000103) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000104) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000105) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000003) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000002) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000010) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000080) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x400000b0) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000073) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000106) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000107) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000108) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x40000118) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x400000ff) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x400000f1) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x400000f2) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x400000f3) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x400000f4) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x400000f5) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x4b564d02) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x4b564d03) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x4b564d04) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x4b564d06) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x4b564d07) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x3b) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x6e0) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x10a) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x345) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x1a0) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x9e) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x34) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xce) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x140) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xc001011f) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xc0000104) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x1fc) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x8b) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0xc0010015) unsupported by gem5. Skipping.
+src/arch/x86/kvm/x86_cpu.cc:1688: warn: kvm-x86: MSR (0x4b564d05) unsupported by gem5. Skipping.
+src/dev/x86/pc.cc:117: warn: Don't know what interrupt to clear for console.
+src/arch/x86/interrupts.cc:530: hack: Assuming logical destinations are 1 << id.
+src/dev/x86/pc.cc:130: warn: Tried to clear PCI interrupt 11
+src/sim/power_state.cc:105: warn: PowerState: Already in the requested power state, request ignored
+Switching CPU model: %d -> %d kvm atomic
+switching cpus
+build/X86/arch/x86/generated/exec-ns.cc.inc:27: warn: instruction 'fwait' unimplemented
+build/X86/arch/x86/generated/exec-ns.cc.inc:27: warn: instruction 'fwait' unimplemented
+exit request from gem5 peers @ 15395000000001

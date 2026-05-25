@@ -1,0 +1,19 @@
+warn: --dist-sync-start=0 is not supported; using 1t instead.
+Global frequency set at 1000000000000 ticks per second
+src/dev/net/tcp_iface.cc:97: info: tcp_iface listening on port 2221
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:0 -> (node:0, iface:0))
+src/dev/net/dist_iface.cc:73: info: Next dist synchronisation tick is changed to 1.
+src/dev/net/dist_iface.cc:81: info: Dist synchronisation interval is changed to 20000000.
+src/dev/net/tcp_iface.cc:177: info: Link okay  (iface:1 -> (node:1, iface:0))
+src/dev/net/dist_iface.cc:362: info: Dist sync scheduled at 1 and repeats 20000000
+gem5 Simulator System.  https://www.gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 version 25.0.0.1
+gem5 compiled Apr 12 2026 16:58:41
+gem5 started May 12 2026 22:03:23
+gem5 executing on fedora-f, pid 13022
+command line: /workspaces/gem5/util/dist/test/./../../../build/X86/gem5.opt -d /workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_20us/sr_equal/m5out.switch --listener-mode=off /workspaces/gem5/configs/example/gem5_library/x86-dist-stdlib.py --dist-sync-start=0s --dist-sync-repeat=20000ns --ethernet-linkdelay=20us --ethernet-linkspeed=200Gbps --internal-trace-prefix=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_20us/sr_equal/internal_sw --internal-trace-maxlen=512 --num-leaf-switches 2 --nodes-per-switch 1,1 --trace-internal-links --checkpoint-dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/sweep_runs/sweep-linkdelay-synrepeat-20260512-215421-2nodes-timing-1cores-200gbps-ld0.1to1000us-x13-sr0to0pct-x1-sw1/hierarchical/ld_20us/sr_equal/m5out.switch --is-switch --dist-size=2 --dist-server-port=2221
+
+Running in switch mode
+exit request from gem5 peers @ 11409600000001

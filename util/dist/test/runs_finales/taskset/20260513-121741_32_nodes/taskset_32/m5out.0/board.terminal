@@ -1,0 +1,1370 @@
+[    0.000000] Linux version 5.15.0-142-generic (buildd@lcy02-amd64-032) (gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #152-Ubuntu SMP Mon May 19 10:54:31 UTC 2025 (Ubuntu 5.15.0-142.152-generic 5.15.180)
+[    0.000000] Command line: earlyprintk=ttyS0 console=ttyS0 root=/dev/sda2 rw random.trust_cpu=on nokaslr clocksource=tsc tsc=reliable no_timer_check
+[    0.000000] KERNEL supported cpus:
+[    0.000000]   Intel GenuineIntel
+[    0.000000]   AMD AuthenticAMD
+[    0.000000]   Hygon HygonGenuine
+[    0.000000]   Centaur CentaurHauls
+[    0.000000]   zhaoxin   Shanghai  
+[    0.000000] BIOS-provided physical RAM map:
+[    0.000000] BIOS-e820: [mem 0x0000000000000000-0x000000000009fbff] usable
+[    0.000000] BIOS-e820: [mem 0x000000000009fc00-0x00000000000fffff] reserved
+[    0.000000] BIOS-e820: [mem 0x0000000000100000-0x000000007fffffff] usable
+[    0.000000] BIOS-e820: [mem 0x00000000ffff0000-0x00000000ffffffff] reserved
+[    0.000000] printk: bootconsole [earlyser0] enabled
+[    0.000000] NX (Execute Disable) protection: active
+[    0.000000] SMBIOS 2.5 present.
+[    0.000000] DMI:  , BIOS  06/08/2008
+[    0.000000] tsc: Fast TSC calibration failed
+[    0.000000] last_pfn = 0x80000 max_arch_pfn = 0x400000000
+[    0.000000] Disabled
+[    0.000000] x86/PAT: MTRRs disabled, skipping PAT initialization too.
+[    0.000000] CPU MTRRs all blank - virtualized system.
+[    0.000000] x86/PAT: Configuration [0-7]: WB  WT  UC- UC  WB  WT  UC- UC  
+[    0.000000] found SMP MP-table at [mem 0x000f0050-0x000f005f]
+[    0.000000] ACPI: Early table checksum verification disabled
+[    0.000000] ACPI: RSDP 0x00000000000F01B0 000024 (v02 gem5  )
+[    0.000000] ACPI: XSDT 0x00000000000F03A8 00002C (v01 gem5            00000000      00000000)
+[    0.000000] ACPI: APIC 0x00000000000F02D2 0000D6 (v04 madt            00000000      00000000)
+[    0.000000] ACPI: Reserving APIC table memory at [mem 0xf02d2-0xf03a7]
+[    0.000000] No NUMA configuration found
+[    0.000000] Faking a node at [mem 0x0000000000000000-0x000000007fffffff]
+[    0.000000] NODE_DATA(0) allocated [mem 0x7ffd6000-0x7fffffff]
+[    0.000000] Zone ranges:
+[    0.000000]   DMA      [mem 0x0000000000001000-0x0000000000ffffff]
+[    0.000000]   DMA32    [mem 0x0000000001000000-0x000000007fffffff]
+[    0.000000]   Normal   empty
+[    0.000000]   Device   empty
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000001000-0x000000000009efff]
+[    0.000000]   node   0: [mem 0x0000000000100000-0x000000007fffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000001000-0x000000007fffffff]
+[    0.000000] On node 0, zone DMA: 1 pages in unavailable ranges
+[    0.000000] On node 0, zone DMA: 97 pages in unavailable ranges
+[    0.000000] IOAPIC[0]: apic_id 1, version 20, address 0xfec00000, GSI 0-23
+[    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 16 global_irq 16 dfl dfl)
+[    0.000000] ACPI: Invalid bus_irq 16 for legacy override
+[    0.000000] ACPI: INT_SRC_OVR (bus 1 bus_irq 0 global_irq 2 dfl dfl)
+[    0.000000] ACPI: INT_SRC_OVR (bus 1 bus_irq 1 global_irq 1 dfl dfl)
+[    0.000000] ACPI: INT_SRC_OVR (bus 1 bus_irq 3 global_irq 3 dfl dfl)
+[    0.000000] ACPI: INT_SRC_OVR (bus 1 bus_irq 4 global_irq 4 dfl dfl)
+[    0.000000] ACPI: INT_SRC_OVR (bus 1 bus_irq 5 global_irq 5 dfl dfl)
+[    0.000000] ACPI: INT_SRC_OVR (bus 1 bus_irq 6 global_irq 6 dfl dfl)
+[    0.000000] ACPI: INT_SRC_OVR (bus 1 bus_irq 7 global_irq 7 dfl dfl)
+[    0.000000] ACPI: INT_SRC_OVR (bus 1 bus_irq 8 global_irq 8 dfl dfl)
+[    0.000000] ACPI: INT_SRC_OVR (bus 1 bus_irq 9 global_irq 9 dfl dfl)
+[    0.000000] ACPI: INT_SRC_OVR (bus 1 bus_irq 10 global_irq 10 dfl dfl)
+[    0.000000] ACPI: INT_SRC_OVR (bus 1 bus_irq 11 global_irq 11 dfl dfl)
+[    0.000000] ACPI: INT_SRC_OVR (bus 1 bus_irq 12 global_irq 12 dfl dfl)
+[    0.000000] ACPI: INT_SRC_OVR (bus 1 bus_irq 13 global_irq 13 dfl dfl)
+[    0.000000] ACPI: INT_SRC_OVR (bus 1 bus_irq 14 global_irq 14 dfl dfl)
+[    0.000000] ACPI: Using ACPI (MADT) for SMP configuration information
+[    0.000000] smpboot: Allowing 1 CPUs, 0 hotplug CPUs
+[    0.000000] PM: hibernation: Registered nosave memory: [mem 0x00000000-0x00000fff]
+[    0.000000] PM: hibernation: Registered nosave memory: [mem 0x0009f000-0x0009ffff]
+[    0.000000] PM: hibernation: Registered nosave memory: [mem 0x000a0000-0x000fffff]
+[    0.000000] [mem 0x80000000-0xfffeffff] available for PCI devices
+[    0.000000] Booting paravirtualized kernel on bare hardware
+[    0.000000] clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645519600211568 ns
+[    0.000000] setup_percpu: NR_CPUS:8192 nr_cpumask_bits:1 nr_cpu_ids:1 nr_node_ids:1
+[    0.000000] percpu: Embedded 62 pages/cpu s217088 r8192 d28672 u2097152
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 515840
+[    0.000000] Policy zone: DMA32
+[    0.000000] Kernel command line: earlyprintk=ttyS0 console=ttyS0 root=/dev/sda2 rw random.trust_cpu=on nokaslr clocksource=tsc tsc=reliable no_timer_check
+[    0.000000] Unknown kernel command line parameters "nokaslr", will be passed to user space.
+[    0.000000] Dentry cache hash table entries: 262144 (order: 9, 2097152 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 131072 (order: 8, 1048576 bytes, linear)
+[    0.000000] mem auto-init: stack:off, heap alloc:on, heap free:off
+[    0.000000] Memory: 2002152K/2096760K available (16392K kernel code, 4400K rwdata, 10980K rodata, 3284K init, 18780K bss, 94352K reserved, 0K cma-reserved)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+Poking KASLR using RDTSC...
+[    0.000000] ftrace: allocating 50838 entries in 199 pages
+[    0.000000] ftrace: allocated 199 pages with 5 groups
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=8192 to nr_cpu_ids=1.
+[    0.000000] 	Rude variant of Tasks RCU enabled.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[    0.000000] NR_IRQS: 524544, nr_irqs: 256, preallocated irqs: 16
+[    0.000000] Console: colour dummy device 80x25
+[    0.000000] printk: console [ttyS0] enabled
+[    0.000000] printk: console [ttyS0] enabled
+[    0.000000] printk: bootconsole [earlyser0] disabled
+[    0.000000] printk: bootconsole [earlyser0] disabled
+[    0.000000] ACPI: Core revision 20210730
+[    0.000000] APIC: Switch to symmetric I/O mode setup
+[    0.000000] ..TIMER: vector=0x30 apic1=0 pin1=2 apic2=-1 pin2=-1
+[    0.012000] tsc: Unable to calibrate against PIT
+[    0.016000] tsc: No reference (HPET/PMTIMER) available
+[    0.020000] tsc: Marking TSC unstable due to could not calculate TSC khz
+[    0.024000] Calibrating delay loop... 5083.13 BogoMIPS (lpj=10166272)
+[    0.052000] Last level iTLB entries: 4KB 512, 2MB 8, 4MB 4
+[    0.056000] Last level dTLB entries: 4KB 512, 2MB 8, 4MB 4, 1GB 0
+[    0.060000] Spectre V1 : Mitigation: usercopy/swapgs barriers and __user pointer sanitization
+[    0.064000] Spectre V2 : Mitigation: Retpolines
+[    0.068000] Spectre V2 : Spectre v2 / SpectreRSB mitigation: Filling RSB on context switch
+[    0.072000] Spectre V2 : Spectre v2 / SpectreRSB : Filling RSB on VMEXIT
+[    0.076000] Speculative Store Bypass: Vulnerable
+[    0.080000] x86/fpu: x87 FPU will use FXSAVE
+[    0.112000] Freeing SMP alternatives memory: 44K
+[    0.116000] pid_max: default: 32768 minimum: 301
+[    0.120000] LSM: Security Framework initializing
+[    0.124000] landlock: Up and running.
+[    0.128000] Yama: becoming mindful.
+[    0.128000] AppArmor: AppArmor initialized
+[    0.132000] Mount-cache hash table entries: 4096 (order: 3, 32768 bytes, linear)
+[    0.136000] Mountpoint-cache hash table entries: 4096 (order: 3, 32768 bytes, linear)
+[    0.140000] ACPI Warning: AcpiEnable failed (20210730/utxfinit-135)
+[    0.144000] ACPI: Unable to enable ACPI
+[    0.364000] smpboot: CPU0: Hygon Fake gem5 x86_64 CPU (family: 0xf, model: 0x25, stepping: 0x1)
+[    0.368000] Performance Events: HYGON PMU driver.
+[    0.372000] ... version:                0
+[    0.376000] ... bit width:              48
+[    0.380000] ... generic registers:      4
+[    0.380000] ... value mask:             0000ffffffffffff
+[    0.384000] ... max period:             00007fffffffffff
+[    0.388000] ... fixed-purpose events:   0
+[    0.388000] ... event mask:             000000000000000f
+[    0.396000] signal: max sigframe size: 1440
+[    0.396000] rcu: Hierarchical SRCU implementation.
+[    0.404000] NMI watchdog: Enabled. Permanently consumes one hw-PMU counter.
+[    0.408000] smp: Bringing up secondary CPUs ...
+[    0.412000] smp: Brought up 1 node, 1 CPU
+[    0.416000] smpboot: Max logical packages: 1
+[    0.420000] smpboot: Total of 1 processors activated (5083.13 BogoMIPS)
+[    0.424000] devtmpfs: initialized
+[    0.428000] x86/mm: Memory block size: 128MB
+[    0.432000] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.436000] futex hash table entries: 256 (order: 2, 16384 bytes, linear)
+[    0.440000] pinctrl core: initialized pinctrl subsystem
+[    0.444000] PM: RTC time: 00:00:01, date: 2012-01-01
+[    0.448000] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    0.452000] DMA: preallocated 256 KiB GFP_KERNEL pool for atomic allocations
+[    0.456000] DMA: preallocated 256 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+[    0.460000] DMA: preallocated 256 KiB GFP_KERNEL|GFP_DMA32 pool for atomic allocations
+[    0.464000] audit: initializing netlink subsys (disabled)
+[    0.472000] audit: type=2000 audit(1325376000.468:1): state=initialized audit_enabled=0 res=1
+[    0.476000] thermal_sys: Registered thermal governor 'fair_share'
+[    0.476000] thermal_sys: Registered thermal governor 'bang_bang'
+[    0.480000] thermal_sys: Registered thermal governor 'step_wise'
+[    0.484000] thermal_sys: Registered thermal governor 'user_space'
+[    0.488000] thermal_sys: Registered thermal governor 'power_allocator'
+[    0.492000] cpuidle: using governor ladder
+[    0.500000] cpuidle: using governor menu
+[    0.504000] PCI: Using configuration type 1 for base access
+[    0.508000] kprobes: kprobe jump-optimization is enabled. All kprobes are optimized if possible.
+[    0.512000] HugeTLB registered 2.00 MiB page size, pre-allocated 0 pages
+[    0.516000] ACPI: Interpreter disabled.
+[    0.520000] iommu: Default domain type: Translated 
+[    0.524000] iommu: DMA domain TLB invalidation policy: lazy mode 
+[    0.532000] SCSI subsystem initialized
+[    0.532000] vgaarb: loaded
+[    0.536000] usbcore: registered new interface driver usbfs
+[    0.540000] usbcore: registered new interface driver hub
+[    0.544000] usbcore: registered new device driver usb
+[    0.548000] pps_core: LinuxPPS API ver. 1 registered
+[    0.552000] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    0.556000] PTP clock support registered
+[    0.560000] EDAC MC: Ver: 3.0.0
+[    0.564000] NetLabel: Initializing
+[    0.564000] NetLabel:  domain hash size = 128
+[    0.568000] NetLabel:  protocols = UNLABELED CIPSOv4 CALIPSO
+[    0.572000] NetLabel:  unlabeled traffic allowed by default
+[    0.576000] PCI: Probing PCI hardware
+[    0.580000] PCI host bridge to bus 0000:00
+[    0.580000] pci_bus 0000:00: root bus resource [io  0x0000-0xffff]
+[    0.584000] pci_bus 0000:00: root bus resource [mem 0x00000000-0xffffffffffff]
+[    0.588000] pci_bus 0000:00: No busn resource found for root bus, will use [bus 00-ff]
+[    0.592000] pci 0000:00:04.0: [8086:7111] type 00 class 0x010180
+[    0.600000] pci 0000:00:04.0: reg 0x20: [io  0x0000-0x000f]
+[    0.604000] pci 0000:00:04.0: reg 0x30: [mem 0x00000000-0x000007ff pref]
+[    0.608000] pci 0000:00:04.0: legacy IDE quirk: reg 0x10: [io  0x01f0-0x01f7]
+[    0.612000] pci 0000:00:04.0: legacy IDE quirk: reg 0x14: [io  0x03f6]
+[    0.616000] pci 0000:00:04.0: legacy IDE quirk: reg 0x18: [io  0x0170-0x0177]
+[    0.620000] pci 0000:00:04.0: legacy IDE quirk: reg 0x1c: [io  0x0376]
+[    0.624000] pci 0000:00:05.0: [8086:1075] type 00 class 0x020000
+[    0.632000] pci 0000:00:05.0: reg 0x10: [mem 0x00000000-0x0001ffff]
+[    0.636000] pci 0000:00:05.0: reg 0x30: [mem 0x00000000-0x000007ff pref]
+[    0.644000] pci_bus 0000:00: busn_res: [bus 00-ff] end is updated to 00
+[    0.648000] clocksource: Switched to clocksource refined-jiffies
+[    0.684002] VFS: Disk quotas dquot_6.6.0
+[    0.692002] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[    0.696003] AppArmor: AppArmor Filesystem Enabled
+[    0.700003] pnp: PnP ACPI: disabled
+[    0.708003] NET: Registered PF_INET protocol family
+[    0.712004] IP idents hash table entries: 32768 (order: 6, 262144 bytes, linear)
+[    0.724004] tcp_listen_portaddr_hash hash table entries: 1024 (order: 2, 16384 bytes, linear)
+[    0.728005] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    0.732005] TCP established hash table entries: 16384 (order: 5, 131072 bytes, linear)
+[    0.736005] TCP bind hash table entries: 16384 (order: 6, 262144 bytes, linear)
+[    0.740005] TCP: Hash tables configured (established 16384 bind 16384)
+[    0.744006] MPTCP token hash table entries: 2048 (order: 3, 49152 bytes, linear)
+[    0.748006] UDP hash table entries: 1024 (order: 3, 32768 bytes, linear)
+[    0.752006] UDP-Lite hash table entries: 1024 (order: 3, 32768 bytes, linear)
+[    0.756006] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[    0.760007] NET: Registered PF_XDP protocol family
+[    0.764007] pci 0000:00:05.0: BAR 0: assigned [mem 0x80000000-0x8001ffff]
+[    0.768007] pci 0000:00:04.0: BAR 6: assigned [mem 0x80020000-0x800207ff pref]
+[    0.772007] pci 0000:00:05.0: BAR 6: assigned [mem 0x80020800-0x80020fff pref]
+[    0.776008] pci 0000:00:04.0: BAR 4: assigned [io  0x1000-0x100f]
+[    0.780008] pci_bus 0000:00: resource 4 [io  0x0000-0xffff]
+[    0.784008] pci_bus 0000:00: resource 5 [mem 0x00000000-0xffffffffffff]
+[    0.788008] PCI: CLS 0 bytes, default 64
+[    0.792009] platform rtc_cmos: registered platform RTC device (no PNP device found)
+[    0.800009] Initialise system trusted keyrings
+[    0.804009] Key type blacklist registered
+[    0.804009] workingset: timestamp_bits=36 max_order=19 bucket_order=0
+[    0.808010] zbud: loaded
+[    0.812010] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    0.816010] fuse: init (API version 7.34)
+[    0.820010] integrity: Platform Keyring initialized
+[    0.828011] Key type asymmetric registered
+[    0.832011] Asymmetric key parser 'x509' registered
+[    0.836011] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 243)
+[    0.840012] io scheduler mq-deadline registered
+[    0.844012] shpchp: Standard Hot Plug PCI Controller Driver version: 0.4
+[    0.848012] Serial: 8250/16550 driver, 32 ports, IRQ sharing enabled
+[    0.852012] serial8250: ttyS0 at I/O 0x3f8 (irq = 4, base_baud = 115200) is a 8250
+[    0.860013] Linux agpgart interface v0.103
+[    0.868013] loop: module loaded
+[    0.868013] ata_piix 0000:00:04.0: enabling device (0000 -> 0001)
+[    0.872014] scsi host0: ata_piix
+[    0.876014] scsi host1: ata_piix
+[    0.880014] ata1: PATA max UDMA/33 cmd 0x1f0 ctl 0x3f6 bmdma 0x1000 irq 14
+[    0.884014] ata2: PATA max UDMA/33 cmd 0x170 ctl 0x376 bmdma 0x1008 irq 15
+[    0.892015] tun: Universal TUN/TAP device driver, 1.6
+[    0.896015] PPP generic driver version 2.4.2
+[    0.900015] VFIO - User Level meta-driver version: 0.3
+[    0.904016] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    0.908016] ehci-pci: EHCI PCI platform driver
+[    0.912016] ehci-platform: EHCI generic platform driver
+[    0.916016] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+[    0.920017] ohci-pci: OHCI PCI platform driver
+[    0.924017] ohci-platform: OHCI generic platform driver
+[    0.928017] uhci_hcd: USB Universal Host Controller Interface driver
+[    0.932017] i8042: PNP: No PS/2 controller found.
+[    0.936018] i8042: Probing ports directly.
+[    0.944018] serio: i8042 KBD port at 0x60,0x64 irq 1
+[    0.948018] serio: i8042 AUX port at 0x60,0x64 irq 12
+[    0.952019] mousedev: PS/2 mouse device common for all mice
+[    0.964019] input: AT Translated Set 2 keyboard as /devices/platform/i8042/serio0/input/input0
+[    0.968020] rtc_cmos rtc_cmos: registered as rtc0
+[    0.972020] rtc_cmos rtc_cmos: setting system clock to 2012-01-01T00:00:01 UTC (1325376001)
+[    0.976020] rtc_cmos rtc_cmos: alarms up to one day, 114 bytes nvram
+[    0.980020] i2c_dev: i2c /dev entries driver
+[    0.984021] device-mapper: core: CONFIG_IMA_DISABLE_HTABLE is disabled. Duplicate IMA measurements will not be recorded in the IMA log.
+[    0.988021] device-mapper: uevent: version 1.0.3
+[    0.992021] device-mapper: ioctl: 4.45.0-ioctl (2021-03-22) initialised: dm-devel@redhat.com
+[    0.996021] ledtrig-cpu: registered to indicate activity on CPUs
+[    1.000022] drop_monitor: Initializing network drop monitor service
+[    1.004022] NET: Registered PF_INET6 protocol family
+[    1.008022] Segment Routing with IPv6
+[    1.012022] In-situ OAM (IOAM) with IPv6
+[    1.016023] NET: Registered PF_PACKET protocol family
+[    1.020023] Key type dns_resolver registered
+[    1.024023] IPI shorthand broadcast: enabled
+[    1.028023] registered taskstats version 1
+[    1.032024] Loading compiled-in X.509 certificates
+[    1.036024] Loaded X.509 cert 'Build time autogenerated kernel key: 3eefbd0531de61f8b3b4b5eda3826d6ede23b67e'
+[    1.040024] Loaded X.509 cert 'Canonical Ltd. Live Patch Signing 2025 Kmod: d541cef61dc7e793b7eb7e899970a2eef0b5dc8c'
+[    1.044024] Loaded X.509 cert 'Canonical Ltd. Live Patch Signing: 14df34d1a87cf37625abec039ef2bf521249b969'
+[    1.048025] ata1.00: ATA-7: M5 IDE Disk, , max UDMA/66
+[    1.056025] ata1.00: 10240000 sectors, multi 0: LBA 
+[    1.060025] Loaded X.509 cert 'Canonical Ltd. Kernel Module Signing: 88f752e560a1e0737e31163a466ad7b70a850c19'
+[    1.064026] blacklist: Loading compiled-in revocation X.509 certificates
+[    1.068026] Loaded X.509 cert 'Canonical Ltd. Secure Boot Signing: 61482aa2830d0ab2ad5af10b7250da9033ddcef0'
+[    1.072026] scsi 0:0:0:0: Direct-Access     ATA      M5 IDE Disk      n/a  PQ: 0 ANSI: 5
+[    1.076026] sd 0:0:0:0: [sda] 10240000 512-byte logical blocks: (5.24 GB/4.88 GiB)
+[    1.080027] sd 0:0:0:0: Attached scsi generic sg0 type 0
+[    1.084027] sd 0:0:0:0: [sda] Write Protect is off
+[    1.088027] Loaded X.509 cert 'Canonical Ltd. Secure Boot Signing (2017): 242ade75ac4a15e50d50c84b0d45ff3eae707a03'
+[    1.092027] sd 0:0:0:0: [sda] Write cache: disabled, read cache: enabled, doesn't support DPO or FUA
+[    1.096028] Loaded X.509 cert 'Canonical Ltd. Secure Boot Signing (ESM 2018): 365188c1d374d6b07c3c8f240f8ef722433d6a8b'
+[    1.112029]  sda: sda1 sda2
+[    1.116029] Loaded X.509 cert 'Canonical Ltd. Secure Boot Signing (2019): c0746fd6c5da3ae827864651ad66ae47fe24b3e8'
+[    1.120029] sd 0:0:0:0: [sda] Attached SCSI disk
+[    1.124029] Loaded X.509 cert 'Canonical Ltd. Secure Boot Signing (2021 v1): a8d54bbb3825cfb94fa13c9f8a594a195c107b8d'
+[    1.128030] Loaded X.509 cert 'Canonical Ltd. Secure Boot Signing (2021 v2): 4cf046892d6fd3c9a5b03f98d845f90851dc6a8c'
+[    1.132030] Loaded X.509 cert 'Canonical Ltd. Secure Boot Signing (2021 v3): 100437bb6de6e469b581e61cd66bce3ef4ed53af'
+[    1.136030] Loaded X.509 cert 'Canonical Ltd. Secure Boot Signing (Ubuntu Core 2019): c1d57b8f6b743f23ee41f4f7ee292f06eecadfb9'
+[    1.140030] zswap: loaded using pool lzo/zbud
+[    1.144031] Key type .fscrypt registered
+[    1.148031] Key type fscrypt-provisioning registered
+[    1.152031] Key type encrypted registered
+[    1.156031] AppArmor: AppArmor sha1 policy hashing enabled
+[    1.160032] ima: No TPM chip found, activating TPM-bypass!
+[    1.164032] Loading compiled-in module X.509 certificates
+[    1.168032] Loaded X.509 cert 'Build time autogenerated kernel key: 3eefbd0531de61f8b3b4b5eda3826d6ede23b67e'
+[    1.172032] ima: Allocated hash algorithm: sha1
+[    1.176033] ima: No architecture policies found
+[    1.180033] evm: Initialising EVM extended attributes:
+[    1.184033] evm: security.selinux
+[    1.188033] evm: security.SMACK64
+[    1.192034] evm: security.SMACK64EXEC
+[    1.196034] evm: security.SMACK64TRANSMUTE
+[    1.200034] evm: security.SMACK64MMAP
+[    1.200034] evm: security.apparmor
+[    1.204034] evm: security.ima
+[    1.208035] evm: security.capability
+[    1.208035] evm: HMAC attrs: 0x1
+[    1.212035] PM:   Magic number: 12:0:0
+[    1.216035] RAS: Correctable Errors collector initialized.
+[    1.220035] Unstable clock detected, switching default tracing clock to "global"
+[    1.220035] If you want to keep using the local clock, then add:
+[    1.220035]   "trace_clock=local"
+[    1.220035] on the kernel command line
+[    1.224036] clk: Disabling unused clocks
+[    1.228036] md: Waiting for all devices to be available before autodetect
+[    1.232036] md: If you don't use raid, use raid=noautodetect
+[    1.236036] md: Autodetecting RAID arrays.
+[    1.236036] md: autorun ...
+[    1.240037] md: ... autorun DONE.
+[    1.256038] EXT4-fs (sda2): mounted filesystem with ordered data mode. Opts: (null). Quota mode: none.
+[    1.260038] VFS: Mounted root (ext4 filesystem) on device 8:2.
+[    1.268038] devtmpfs: mounted
+[    1.272039] Freeing unused decrypted memory: 2036K
+[    1.276039] Freeing unused kernel image (initmem) memory: 3284K
+[    1.280039] Write protecting the kernel read-only data: 30720k
+[    1.284039] Freeing unused kernel image (text/rodata gap) memory: 2036K
+[    1.288040] Freeing unused kernel image (rodata/data gap) memory: 1308K
+[    1.340043] x86/mm: Checked W+X mappings: passed, no W+X pages found.
+[    1.344043] Run /sbin/init as init process
+[    1.692065] gem5_bridge: loading out-of-tree module taints kernel.
+[    1.696065] gem5_bridge: module verification failed: signature and/or required key missing - tainting kernel
+[    1.704066] gem5_bridge_init: SUCCESS!
+Kernel booted, In gem5 init...
+Getting root tty
+Ubuntu 22.04.2 LTS (none) ttyS0
+
+(none) login: root (automatic login)
+
+Starting gem5 init... reading run script file.
+[    1.792071] gem5_bridge_open: SUCCESS!
+[    1.796071] gem5_bridge_mmap: SUCCESS!
+[    1.804072] gem5_bridge_release: SUCCESS!
+Running m5 script from /tmp/script
++ modprobe -r igb e1000e e1000
+++ awk '/ 0200: /{print $3; exit}'
+++ lspci -n
++ PCI_NET_ID=8086:1075
++ case "$PCI_NET_ID" in
++ modprobe e1000
+[    1.984083] e1000: Intel(R) PRO/1000 Network Driver
+[    1.988083] e1000: Copyright (c) 1999-2006 Intel Corporation.
+[    1.992084] e1000 0000:00:05.0: enabling device (0000 -> 0002)
+[    2.000084] e1000 0000:00:05.0: can't find IRQ for PCI INT A; probably buggy MP table
+[    3.064151] e1000 0000:00:05.0 eth0: (PCI:33MHz:32-bit) 00:90:00:00:00:01
+[    3.068151] e1000 0000:00:05.0 eth0: Intel(R) PRO/1000 Network Connection
++ sleep 2
++ IFACE_BOOT=
++ for _ in 1 2 3 4 5
+++ awk '-F: ' '$2!="lo"{print $2; exit}'
+++ ip -o link
++ IFACE_BOOT=eth0
++ '[' -n eth0 ']'
++ break
++ '[' -z eth0 ']'
++ BENCHMARK_BIN=/root/osu_installed/libexec/osu-micro-benchmarks/mpi/collective/osu_alltoall
++ BENCHMARK_ARGS='-x 2 -i 10 -m 0:512'
++ echo '[BOOT] Iniciando configuración de red...'
+[BOOT] Iniciando configuración de red...
++ source /root/.bashrc
+++ '[' -z '' ']'
+++ return
++ '[' -x /usr/sbin/haveged ']'
++ MY_RANK=
++ MY_SIZE=
++ '[' -z '' ']'
+++ /sbin/m5 initparam dist-rank
+[    5.228286] gem5_bridge_open: SUCCESS!
+[    5.232286] gem5_bridge_mmap: SUCCESS!
+[    5.240287] gem5_bridge_release: SUCCESS!
++ MY_RANK=0
++ '[' -z 0 ']'
++ '[' -z '' ']'
+++ /sbin/m5 initparam dist-size
+[    5.256288] gem5_bridge_open: SUCCESS!
+[    5.260288] gem5_bridge_mmap: SUCCESS!
+[    5.264288] gem5_bridge_release: SUCCESS!
++ MY_SIZE=32
++ DIST_SIZE_RAW=32
++ '[' -z 0 ']'
++ '[' -z 32 ']'
++ '[' 32 = 0 ']'
++ '[' 32 = 1 ']'
++ MY_RANK=0
++ MY_SIZE=32
++ DIST_MODE=0
++ '[' -n 32 ']'
++ '[' 32 -gt 1 ']'
++ DIST_MODE=1
++ HOSTNAME=node0
++ hostname node0
++ ifconfig lo 127.0.0.1 up
++ MY_ADDR=2
++ MY_IP=192.168.0.2
+++ awk '-F: ' '$2!="lo"{print $2; exit}'
+++ ip -o link
++ IFACE=eth0
++ '[' -z eth0 ']'
++ '[' -z eth0 ']'
++ ip link set eth0 down
++ ip addr flush dev eth0
+++ printf %02x 2
++ ip link set dev eth0 address 00:90:00:00:00:02
++ ip addr add 192.168.0.2/24 dev eth0
++ sysctl -w net.ipv4.conf.all.ignore_routes_with_linkdown=0
++ sysctl -w net.ipv4.conf.default.ignore_routes_with_linkdown=0
++ sysctl -w net.ipv4.conf.eth0.ignore_routes_with_linkdown=0
++ ip route replace 192.168.0.0/24 dev eth0 scope link src 192.168.0.2 onlink
++ true
++ ip link set eth0 up
+[    5.492302] e1000: eth0 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: None
+[    5.504303] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
++ (( i=0 ))
++ (( i<MY_SIZE ))
++ '[' 0 = 0 ']'
++ continue
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 1 = 0 ']'
++ PEER_ADDR=3
++ PEER_IP=192.168.0.3
+++ printf %02x 3
++ PEER_MAC=00:90:00:00:00:03
++ ip neigh replace 192.168.0.3 lladdr 00:90:00:00:00:03 dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 2 = 0 ']'
++ PEER_ADDR=4
++ PEER_IP=192.168.0.4
+++ printf %02x 4
++ PEER_MAC=00:90:00:00:00:04
++ ip neigh replace 192.168.0.4 lladdr 00:90:00:00:00:04 dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 3 = 0 ']'
++ PEER_ADDR=5
++ PEER_IP=192.168.0.5
+++ printf %02x 5
++ PEER_MAC=00:90:00:00:00:05
++ ip neigh replace 192.168.0.5 lladdr 00:90:00:00:00:05 dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 4 = 0 ']'
++ PEER_ADDR=6
++ PEER_IP=192.168.0.6
+++ printf %02x 6
++ PEER_MAC=00:90:00:00:00:06
++ ip neigh replace 192.168.0.6 lladdr 00:90:00:00:00:06 dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 5 = 0 ']'
++ PEER_ADDR=7
++ PEER_IP=192.168.0.7
+++ printf %02x 7
++ PEER_MAC=00:90:00:00:00:07
++ ip neigh replace 192.168.0.7 lladdr 00:90:00:00:00:07 dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 6 = 0 ']'
++ PEER_ADDR=8
++ PEER_IP=192.168.0.8
+++ printf %02x 8
++ PEER_MAC=00:90:00:00:00:08
++ ip neigh replace 192.168.0.8 lladdr 00:90:00:00:00:08 dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 7 = 0 ']'
++ PEER_ADDR=9
++ PEER_IP=192.168.0.9
+++ printf %02x 9
++ PEER_MAC=00:90:00:00:00:09
++ ip neigh replace 192.168.0.9 lladdr 00:90:00:00:00:09 dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 8 = 0 ']'
++ PEER_ADDR=10
++ PEER_IP=192.168.0.10
+++ printf %02x 10
++ PEER_MAC=00:90:00:00:00:0a
++ ip neigh replace 192.168.0.10 lladdr 00:90:00:00:00:0a dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 9 = 0 ']'
++ PEER_ADDR=11
++ PEER_IP=192.168.0.11
+++ printf %02x 11
++ PEER_MAC=00:90:00:00:00:0b
++ ip neigh replace 192.168.0.11 lladdr 00:90:00:00:00:0b dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 10 = 0 ']'
++ PEER_ADDR=12
++ PEER_IP=192.168.0.12
+++ printf %02x 12
++ PEER_MAC=00:90:00:00:00:0c
++ ip neigh replace 192.168.0.12 lladdr 00:90:00:00:00:0c dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 11 = 0 ']'
++ PEER_ADDR=13
++ PEER_IP=192.168.0.13
+++ printf %02x 13
++ PEER_MAC=00:90:00:00:00:0d
++ ip neigh replace 192.168.0.13 lladdr 00:90:00:00:00:0d dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 12 = 0 ']'
++ PEER_ADDR=14
++ PEER_IP=192.168.0.14
+++ printf %02x 14
++ PEER_MAC=00:90:00:00:00:0e
++ ip neigh replace 192.168.0.14 lladdr 00:90:00:00:00:0e dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 13 = 0 ']'
++ PEER_ADDR=15
++ PEER_IP=192.168.0.15
+++ printf %02x 15
++ PEER_MAC=00:90:00:00:00:0f
++ ip neigh replace 192.168.0.15 lladdr 00:90:00:00:00:0f dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 14 = 0 ']'
++ PEER_ADDR=16
++ PEER_IP=192.168.0.16
+++ printf %02x 16
++ PEER_MAC=00:90:00:00:00:10
++ ip neigh replace 192.168.0.16 lladdr 00:90:00:00:00:10 dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 15 = 0 ']'
++ PEER_ADDR=17
++ PEER_IP=192.168.0.17
+++ printf %02x 17
++ PEER_MAC=00:90:00:00:00:11
++ ip neigh replace 192.168.0.17 lladdr 00:90:00:00:00:11 dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 16 = 0 ']'
++ PEER_ADDR=18
++ PEER_IP=192.168.0.18
+++ printf %02x 18
++ PEER_MAC=00:90:00:00:00:12
++ ip neigh replace 192.168.0.18 lladdr 00:90:00:00:00:12 dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 17 = 0 ']'
++ PEER_ADDR=19
++ PEER_IP=192.168.0.19
+++ printf %02x 19
++ PEER_MAC=00:90:00:00:00:13
++ ip neigh replace 192.168.0.19 lladdr 00:90:00:00:00:13 dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 18 = 0 ']'
++ PEER_ADDR=20
++ PEER_IP=192.168.0.20
+++ printf %02x 20
++ PEER_MAC=00:90:00:00:00:14
++ ip neigh replace 192.168.0.20 lladdr 00:90:00:00:00:14 dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 19 = 0 ']'
++ PEER_ADDR=21
++ PEER_IP=192.168.0.21
+++ printf %02x 21
++ PEER_MAC=00:90:00:00:00:15
++ ip neigh replace 192.168.0.21 lladdr 00:90:00:00:00:15 dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 20 = 0 ']'
++ PEER_ADDR=22
++ PEER_IP=192.168.0.22
+++ printf %02x 22
++ PEER_MAC=00:90:00:00:00:16
++ ip neigh replace 192.168.0.22 lladdr 00:90:00:00:00:16 dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 21 = 0 ']'
++ PEER_ADDR=23
++ PEER_IP=192.168.0.23
+++ printf %02x 23
++ PEER_MAC=00:90:00:00:00:17
++ ip neigh replace 192.168.0.23 lladdr 00:90:00:00:00:17 dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 22 = 0 ']'
++ PEER_ADDR=24
++ PEER_IP=192.168.0.24
+++ printf %02x 24
++ PEER_MAC=00:90:00:00:00:18
++ ip neigh replace 192.168.0.24 lladdr 00:90:00:00:00:18 dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 23 = 0 ']'
++ PEER_ADDR=25
++ PEER_IP=192.168.0.25
+++ printf %02x 25
++ PEER_MAC=00:90:00:00:00:19
++ ip neigh replace 192.168.0.25 lladdr 00:90:00:00:00:19 dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 24 = 0 ']'
++ PEER_ADDR=26
++ PEER_IP=192.168.0.26
+++ printf %02x 26
++ PEER_MAC=00:90:00:00:00:1a
++ ip neigh replace 192.168.0.26 lladdr 00:90:00:00:00:1a dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 25 = 0 ']'
++ PEER_ADDR=27
++ PEER_IP=192.168.0.27
+++ printf %02x 27
++ PEER_MAC=00:90:00:00:00:1b
++ ip neigh replace 192.168.0.27 lladdr 00:90:00:00:00:1b dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 26 = 0 ']'
++ PEER_ADDR=28
++ PEER_IP=192.168.0.28
+++ printf %02x 28
++ PEER_MAC=00:90:00:00:00:1c
++ ip neigh replace 192.168.0.28 lladdr 00:90:00:00:00:1c dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 27 = 0 ']'
++ PEER_ADDR=29
++ PEER_IP=192.168.0.29
+++ printf %02x 29
++ PEER_MAC=00:90:00:00:00:1d
++ ip neigh replace 192.168.0.29 lladdr 00:90:00:00:00:1d dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 28 = 0 ']'
++ PEER_ADDR=30
++ PEER_IP=192.168.0.30
+++ printf %02x 30
++ PEER_MAC=00:90:00:00:00:1e
++ ip neigh replace 192.168.0.30 lladdr 00:90:00:00:00:1e dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 29 = 0 ']'
++ PEER_ADDR=31
++ PEER_IP=192.168.0.31
+++ printf %02x 31
++ PEER_MAC=00:90:00:00:00:1f
++ ip neigh replace 192.168.0.31 lladdr 00:90:00:00:00:1f dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 30 = 0 ']'
++ PEER_ADDR=32
++ PEER_IP=192.168.0.32
+++ printf %02x 32
++ PEER_MAC=00:90:00:00:00:20
++ ip neigh replace 192.168.0.32 lladdr 00:90:00:00:00:20 dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ '[' 31 = 0 ']'
++ PEER_ADDR=33
++ PEER_IP=192.168.0.33
+++ printf %02x 33
++ PEER_MAC=00:90:00:00:00:21
++ ip neigh replace 192.168.0.33 lladdr 00:90:00:00:00:21 dev eth0 nud permanent
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '127.0.0.1 localhost'
++ (( i=0 ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.2 node0'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.3 node1'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.4 node2'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.5 node3'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.6 node4'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.7 node5'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.8 node6'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.9 node7'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.10 node8'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.11 node9'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.12 node10'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.13 node11'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.14 node12'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.15 node13'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.16 node14'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.17 node15'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.18 node16'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.19 node17'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.20 node18'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.21 node19'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.22 node20'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.23 node21'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.24 node22'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.25 node23'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.26 node24'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.27 node25'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.28 node26'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.29 node27'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.30 node28'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.31 node29'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.32 node30'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '192.168.0.33 node31'
++ (( i++ ))
++ (( i<MY_SIZE ))
++ sleep 1
++ echo '[SSH] Iniciando servicio...'
+[SSH] Iniciando servicio...
++ cat
++ cat
++ chmod 600 /root/.ssh/config
++ mkdir -p /run/sshd
++ chmod 0755 /run/sshd
++ '[' '!' -f /etc/ssh/ssh_host_rsa_key ']'
++ cat /root/.ssh/id_rsa.pub
++ chmod 600 /root/.ssh/authorized_keys
++ chmod 700 /root/.ssh
++ '[' -e /dev/random ']'
++ mv /dev/random /dev/random.real
++ ln -s /dev/urandom /dev/random
++ dd if=/dev/urandom of=/dev/random.real bs=512 count=8 status=none
+[    8.276476] random: dd: uninitialized urandom read (512 bytes read)
+[    8.280477] random: dd: uninitialized urandom read (512 bytes read)
+[    8.284477] random: dd: uninitialized urandom read (512 bytes read)
++ sleep 0.5
++ mount -t proc /proc /proc
++ mount -t sysfs /sys /sys
+mount: /sys: /sys already mounted on /sys.
++ /usr/sbin/sshd
+[    9.792571] random: crng init done
+[    9.792571] random: 5 urandom warning(s) missed due to ratelimiting
++ ip link show
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP mode DEFAULT group default qlen 1000
+    link/ether 00:90:00:00:00:02 brd ff:ff:ff:ff:ff:ff permaddr 00:90:00:00:00:01
++ ip a show
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 00:90:00:00:00:02 brd ff:ff:ff:ff:ff:ff permaddr 00:90:00:00:00:01
+    inet 192.168.0.2/24 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::290:ff:fe00:2/64 scope link 
+       valid_lft forever preferred_lft forever
++ ip -4 route show
+192.168.0.0/24 dev eth0 proto kernel scope link src 192.168.0.2 
++ ip neigh show dev eth0
+192.168.0.28 lladdr 00:90:00:00:00:1c PERMANENT
+192.168.0.29 lladdr 00:90:00:00:00:1d PERMANENT
+192.168.0.26 lladdr 00:90:00:00:00:1a PERMANENT
+192.168.0.27 lladdr 00:90:00:00:00:1b PERMANENT
+192.168.0.24 lladdr 00:90:00:00:00:18 PERMANENT
+192.168.0.25 lladdr 00:90:00:00:00:19 PERMANENT
+192.168.0.6 lladdr 00:90:00:00:00:06 PERMANENT
+192.168.0.7 lladdr 00:90:00:00:00:07 PERMANENT
+192.168.0.32 lladdr 00:90:00:00:00:20 PERMANENT
+192.168.0.4 lladdr 00:90:00:00:00:04 PERMANENT
+192.168.0.33 lladdr 00:90:00:00:00:21 PERMANENT
+192.168.0.5 lladdr 00:90:00:00:00:05 PERMANENT
+192.168.0.3 lladdr 00:90:00:00:00:03 PERMANENT
+192.168.0.14 lladdr 00:90:00:00:00:0e PERMANENT
+192.168.0.15 lladdr 00:90:00:00:00:0f PERMANENT
+192.168.0.12 lladdr 00:90:00:00:00:0c PERMANENT
+192.168.0.13 lladdr 00:90:00:00:00:0d PERMANENT
+192.168.0.10 lladdr 00:90:00:00:00:0a PERMANENT
+192.168.0.11 lladdr 00:90:00:00:00:0b PERMANENT
+192.168.0.8 lladdr 00:90:00:00:00:08 PERMANENT
+192.168.0.9 lladdr 00:90:00:00:00:09 PERMANENT
+192.168.0.23 lladdr 00:90:00:00:00:17 PERMANENT
+192.168.0.22 lladdr 00:90:00:00:00:16 PERMANENT
+192.168.0.20 lladdr 00:90:00:00:00:14 PERMANENT
+192.168.0.21 lladdr 00:90:00:00:00:15 PERMANENT
+192.168.0.18 lladdr 00:90:00:00:00:12 PERMANENT
+192.168.0.19 lladdr 00:90:00:00:00:13 PERMANENT
+192.168.0.16 lladdr 00:90:00:00:00:10 PERMANENT
+192.168.0.17 lladdr 00:90:00:00:00:11 PERMANENT
+192.168.0.31 lladdr 00:90:00:00:00:1f PERMANENT
+192.168.0.30 lladdr 00:90:00:00:00:1e PERMANENT
++ /sbin/m5 workbegin 0
+[   10.100590] gem5_bridge_open: SUCCESS!
+[   10.104591] gem5_bridge_mmap: SUCCESS!
+[   10.108591] gem5_bridge_release: SUCCESS!
++ '[' 0 = 0 ']'
++ echo '[MASTER] Rol: ORQUESTADOR. IP: 192.168.0.2'
+[MASTER] Rol: ORQUESTADOR. IP: 192.168.0.2
++ '[' 1 = 1 ']'
++ (( i=0 ))
++ (( i<MY_SIZE ))
++ echo node0
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node1
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node2
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node3
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node4
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node5
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node6
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node7
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node8
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node9
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node10
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node11
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node12
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node13
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node14
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node15
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node16
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node17
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node18
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node19
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node20
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node21
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node22
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node23
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node24
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node25
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node26
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node27
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node28
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node29
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node30
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo node31
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '[MASTER] Esperando a los esclavos (Puerto 22)...'
+[MASTER] Esperando a los esclavos (Puerto 22)...
++ (( i=1 ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.3
++ echo '[MASTER] Esperando a node1 (192.168.0.3)...'
+[MASTER] Esperando a node1 (192.168.0.3)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node1 listo.'
+[MASTER] node1 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.4
++ echo '[MASTER] Esperando a node2 (192.168.0.4)...'
+[MASTER] Esperando a node2 (192.168.0.4)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node2 listo.'
+[MASTER] node2 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.5
++ echo '[MASTER] Esperando a node3 (192.168.0.5)...'
+[MASTER] Esperando a node3 (192.168.0.5)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node3 listo.'
+[MASTER] node3 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.6
++ echo '[MASTER] Esperando a node4 (192.168.0.6)...'
+[MASTER] Esperando a node4 (192.168.0.6)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node4 listo.'
+[MASTER] node4 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.7
++ echo '[MASTER] Esperando a node5 (192.168.0.7)...'
+[MASTER] Esperando a node5 (192.168.0.7)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node5 listo.'
+[MASTER] node5 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.8
++ echo '[MASTER] Esperando a node6 (192.168.0.8)...'
+[MASTER] Esperando a node6 (192.168.0.8)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node6 listo.'
+[MASTER] node6 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.9
++ echo '[MASTER] Esperando a node7 (192.168.0.9)...'
+[MASTER] Esperando a node7 (192.168.0.9)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node7 listo.'
+[MASTER] node7 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.10
++ echo '[MASTER] Esperando a node8 (192.168.0.10)...'
+[MASTER] Esperando a node8 (192.168.0.10)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node8 listo.'
+[MASTER] node8 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.11
++ echo '[MASTER] Esperando a node9 (192.168.0.11)...'
+[MASTER] Esperando a node9 (192.168.0.11)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node9 listo.'
+[MASTER] node9 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.12
++ echo '[MASTER] Esperando a node10 (192.168.0.12)...'
+[MASTER] Esperando a node10 (192.168.0.12)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node10 listo.'
+[MASTER] node10 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.13
++ echo '[MASTER] Esperando a node11 (192.168.0.13)...'
+[MASTER] Esperando a node11 (192.168.0.13)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node11 listo.'
+[MASTER] node11 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.14
++ echo '[MASTER] Esperando a node12 (192.168.0.14)...'
+[MASTER] Esperando a node12 (192.168.0.14)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node12 listo.'
+[MASTER] node12 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.15
++ echo '[MASTER] Esperando a node13 (192.168.0.15)...'
+[MASTER] Esperando a node13 (192.168.0.15)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node13 listo.'
+[MASTER] node13 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.16
++ echo '[MASTER] Esperando a node14 (192.168.0.16)...'
+[MASTER] Esperando a node14 (192.168.0.16)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node14 listo.'
+[MASTER] node14 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.17
++ echo '[MASTER] Esperando a node15 (192.168.0.17)...'
+[MASTER] Esperando a node15 (192.168.0.17)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node15 listo.'
+[MASTER] node15 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.18
++ echo '[MASTER] Esperando a node16 (192.168.0.18)...'
+[MASTER] Esperando a node16 (192.168.0.18)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node16 listo.'
+[MASTER] node16 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.19
++ echo '[MASTER] Esperando a node17 (192.168.0.19)...'
+[MASTER] Esperando a node17 (192.168.0.19)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node17 listo.'
+[MASTER] node17 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.20
++ echo '[MASTER] Esperando a node18 (192.168.0.20)...'
+[MASTER] Esperando a node18 (192.168.0.20)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node18 listo.'
+[MASTER] node18 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.21
++ echo '[MASTER] Esperando a node19 (192.168.0.21)...'
+[MASTER] Esperando a node19 (192.168.0.21)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node19 listo.'
+[MASTER] node19 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.22
++ echo '[MASTER] Esperando a node20 (192.168.0.22)...'
+[MASTER] Esperando a node20 (192.168.0.22)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node20 listo.'
+[MASTER] node20 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.23
++ echo '[MASTER] Esperando a node21 (192.168.0.23)...'
+[MASTER] Esperando a node21 (192.168.0.23)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node21 listo.'
+[MASTER] node21 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.24
++ echo '[MASTER] Esperando a node22 (192.168.0.24)...'
+[MASTER] Esperando a node22 (192.168.0.24)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node22 listo.'
+[MASTER] node22 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.25
++ echo '[MASTER] Esperando a node23 (192.168.0.25)...'
+[MASTER] Esperando a node23 (192.168.0.25)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node23 listo.'
+[MASTER] node23 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.26
++ echo '[MASTER] Esperando a node24 (192.168.0.26)...'
+[MASTER] Esperando a node24 (192.168.0.26)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node24 listo.'
+[MASTER] node24 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.27
++ echo '[MASTER] Esperando a node25 (192.168.0.27)...'
+[MASTER] Esperando a node25 (192.168.0.27)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node25 listo.'
+[MASTER] node25 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.28
++ echo '[MASTER] Esperando a node26 (192.168.0.28)...'
+[MASTER] Esperando a node26 (192.168.0.28)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node26 listo.'
+[MASTER] node26 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.29
++ echo '[MASTER] Esperando a node27 (192.168.0.29)...'
+[MASTER] Esperando a node27 (192.168.0.29)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node27 listo.'
+[MASTER] node27 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.30
++ echo '[MASTER] Esperando a node28 (192.168.0.30)...'
+[MASTER] Esperando a node28 (192.168.0.30)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node28 listo.'
+[MASTER] node28 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.31
++ echo '[MASTER] Esperando a node29 (192.168.0.31)...'
+[MASTER] Esperando a node29 (192.168.0.31)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node29 listo.'
+[MASTER] node29 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.32
++ echo '[MASTER] Esperando a node30 (192.168.0.32)...'
+[MASTER] Esperando a node30 (192.168.0.32)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node30 listo.'
+[MASTER] node30 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ PEER_IP=192.168.0.33
++ echo '[MASTER] Esperando a node31 (192.168.0.33)...'
+[MASTER] Esperando a node31 (192.168.0.33)...
++ WAIT_SECS=0
++ WAIT_MAX=180
++ true
++ command -v nc
++ break
++ echo '[MASTER] node31 listo.'
+[MASTER] node31 listo.
++ (( i++ ))
++ (( i<MY_SIZE ))
++ echo '[MASTER] Ejecutando MPIRUN...'
+[MASTER] Ejecutando MPIRUN...
++ '[' '!' -f /root/osu_installed/libexec/osu-micro-benchmarks/mpi/collective/osu_alltoall ']'
++ export HWLOC_XMLFILE=/tmp/topo.xml
++ HWLOC_XMLFILE=/tmp/topo.xml
++ /sbin/m5 resetstats
+[   10.336605] gem5_bridge_open: SUCCESS!
+[   10.336605] gem5_bridge_mmap: SUCCESS!
+[   10.336605] gem5_bridge_release: SUCCESS!
++ '[' 1 = 1 ']'
++ mpirun --hostfile /tmp/hostfile -np 32 /root/osu_installed/libexec/osu-micro-benchmarks/mpi/collective/osu_alltoall -x 2 -i 10 -m 0:512
+
+# OSU MPI All-to-All Personalized Exchange Latency Test v5.8
+# Size       Avg Latency(us)
+1                    5200.33
+2                    5112.82
+4                    5225.33
+8                    5225.33
+16                  10738.17
+32                  10563.16
+64                  10713.17
+128                 10563.16
+256                 10738.17
+512                  3125.20
++ EXIT_CODE=0
++ echo '[MASTER] MPI Finalizado. Exit: 0'
+[MASTER] MPI Finalizado. Exit: 0
++ /sbin/m5 exit 1
+[   14.864888] gem5_bridge_open: SUCCESS!
+[   14.864888] gem5_bridge_mmap: SUCCESS!
+[   14.864888] gem5_bridge_release: SUCCESS!
+Done running script, exiting.

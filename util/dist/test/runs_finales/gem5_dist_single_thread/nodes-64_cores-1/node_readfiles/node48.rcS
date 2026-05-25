@@ -1,0 +1,261 @@
+#!/bin/bash
+export GEM5_DIST_RANK_OVERRIDE=48
+export GEM5_DIST_SIZE_OVERRIDE=64
+#!/bin/bash
+# /sbin/m5 checkpoint
+
+set +u
+if [ "${BOOT_TRACE:-0}" = "1" ]; then
+    set -x
+fi
+
+# Carga de driver de red según el Device ID PCI detectado.
+modprobe -r igb e1000e e1000 2>/dev/null || true
+
+PCI_NET_ID=$(lspci -n 2>/dev/null | awk '/ 0200: /{print $3; exit}')
+case "$PCI_NET_ID" in
+    8086:10c9)
+        # 82576 -> igb
+        modprobe igb 2>/dev/null || true
+        ;;
+    8086:1075)
+        # 82547GI -> e1000
+        modprobe e1000 2>/dev/null || true
+        ;;
+    *)
+        # Fallback genérico
+        modprobe igb 2>/dev/null || modprobe e1000e 2>/dev/null || modprobe e1000 2>/dev/null || true
+        ;;
+esac
+# echo "Dsmeg:"
+# dmesg | grep e1000
+# /sbin/m5 exit 1
+sleep 2
+
+IFACE_BOOT=""
+for _ in 1 2 3 4 5; do
+    IFACE_BOOT=$(ip -o link | awk -F': ' '$2!="lo"{print $2; exit}')
+    [ -n "$IFACE_BOOT" ] && break
+    sleep 1
+done
+[ -z "$IFACE_BOOT" ] && IFACE_BOOT="eth0"
+#ip link show "$IFACE_BOOT" || true
+# lspci -v || true
+
+# --- CONFIGURACIÓN DEL BENCHMARK ---
+#BENCHMARK_BIN="/root/osu_installed/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw"
+#BENCHMARK_ARGS="-x 10 -i 5 -m 0:65536"
+BENCHMARK_BIN="/root/matrix_add_scatterv_arbitrary_size"
+BENCHMARK_ARGS="1024"
+# -----------------------------------------------------------------
+# 1. CONFIGURACIÓN DE RED E IDENTIDAD
+# -----------------------------------------------------------------
+echo "[BOOT] Iniciando configuración de red..."
+source /root/.bashrc || true
+
+if [ -x /usr/sbin/haveged ]; then
+    /usr/sbin/haveged -w 1024 -v 1
+fi
+
+MY_RANK=${GEM5_DIST_RANK_OVERRIDE:-}
+MY_SIZE=${GEM5_DIST_SIZE_OVERRIDE:-}
+
+if [ -z "$MY_RANK" ]; then
+    MY_RANK=$(/sbin/m5 initparam dist-rank 2>/dev/null || true)
+fi
+[ -z "$MY_RANK" ] && MY_RANK=0
+
+if [ -z "$MY_SIZE" ]; then
+    MY_SIZE=$(/sbin/m5 initparam dist-size 2>/dev/null || true)
+fi
+DIST_SIZE_RAW=$MY_SIZE
+
+if [ -z "$MY_RANK" ]; then MY_RANK=0; fi
+if [ -z "$MY_SIZE" ] || [ "$MY_SIZE" = "0" ] || [ "$MY_SIZE" = "1" ]; then
+    if command -v nproc >/dev/null 2>&1; then
+        MY_SIZE=$(nproc)
+    else
+        MY_SIZE=1
+    fi
+fi
+
+MY_RANK=$((MY_RANK + 0))
+MY_SIZE=$((MY_SIZE + 0))
+
+DIST_MODE=0
+if [ -n "$DIST_SIZE_RAW" ] && [ "$DIST_SIZE_RAW" -gt 1 ] 2>/dev/null; then
+    DIST_MODE=1
+fi
+
+HOSTNAME="node${MY_RANK}"
+hostname "$HOSTNAME"
+ifconfig lo 127.0.0.1 up
+
+MY_ADDR=$((MY_RANK + 2))
+MY_IP="192.168.0.$MY_ADDR"
+
+IFACE=$(ip -o link | awk -F': ' '$2!="lo"{print $2; exit}')
+[ -z "$IFACE" ] && IFACE="$IFACE_BOOT"
+[ -z "$IFACE" ] && IFACE="eth0"
+
+ip link set "$IFACE" down 2>/dev/null || true
+ip addr flush dev "$IFACE" 2>/dev/null || true
+ip link set dev "$IFACE" address 00:90:00:00:00:$(printf "%02x" $MY_ADDR) 2>/dev/null || true
+ip addr add "$MY_IP/24" dev "$IFACE" 2>/dev/null || true
+sysctl -w net.ipv4.conf.all.ignore_routes_with_linkdown=0 >/dev/null 2>&1 || true
+sysctl -w net.ipv4.conf.default.ignore_routes_with_linkdown=0 >/dev/null 2>&1 || true
+sysctl -w net.ipv4.conf."$IFACE".ignore_routes_with_linkdown=0 >/dev/null 2>&1 || true
+ip route replace 192.168.0.0/24 dev "$IFACE" scope link src "$MY_IP" onlink 2>/dev/null || true
+ip link set "$IFACE" up 2>/dev/null || true
+
+for ((i=0; i<MY_SIZE; i++)); do
+    [ "$i" = "$MY_RANK" ] && continue
+    PEER_ADDR=$((i + 2))
+    PEER_IP="192.168.0.$PEER_ADDR"
+    PEER_MAC="00:90:00:00:00:$(printf "%02x" $PEER_ADDR)"
+    ip neigh replace "$PEER_IP" lladdr "$PEER_MAC" dev "$IFACE" nud permanent 2>/dev/null || true
+done
+
+if command -v ethtool >/dev/null 2>&1; then
+    ethtool -K "$IFACE" tso off gso off gro off lro off rx off tx off sg off >/dev/null 2>&1 || true
+fi
+
+echo "127.0.0.1 localhost" > /etc/hosts
+for ((i=0; i<MY_SIZE; i++)); do
+    echo "192.168.0.$((i + 2)) node$i" >> /etc/hosts
+done
+
+# -----------------------------------------------------------------
+# 2. INICIO DEL SERVICIO SSH
+# -----------------------------------------------------------------
+sleep 1
+
+echo "[SSH] Iniciando servicio..."
+cat > /etc/ssh/sshd_config <<EOF
+Port 22
+Protocol 2
+HostKey /etc/ssh/ssh_host_rsa_key
+Ciphers chacha20-poly1305@openssh.com
+KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group14-sha256
+MACs hmac-sha2-256-etm@openssh.com
+UseDNS no
+PubkeyAuthentication yes
+PasswordAuthentication yes
+EOF
+cat > /root/.ssh/config <<EOF
+Host *
+    Ciphers chacha20-poly1305@openssh.com
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+    LogLevel ERROR
+EOF
+chmod 600 /root/.ssh/config
+
+mkdir -p /run/sshd
+chmod 0755 /run/sshd
+
+if [ ! -f /etc/ssh/ssh_host_rsa_key ]; then
+    echo "[SSH] Generando Host Keys faltantes..."
+    ssh-keygen -A
+fi
+
+cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+chmod 600 /root/.ssh/authorized_keys
+chmod 700 /root/.ssh
+
+if [ -e /dev/random ]; then
+    mv /dev/random /dev/random.real
+    ln -s /dev/urandom /dev/random
+fi
+
+dd if=/dev/urandom of=/dev/random.real bs=512 count=8 status=none || true
+
+sleep 0.5
+
+mount -t proc /proc /proc
+mount -t sysfs /sys /sys
+
+/usr/sbin/sshd
+
+ip link show
+ip a show
+ip -4 route show || true
+ip neigh show dev "$IFACE" || true
+
+# -----------------------------------------------------------------
+# 3. LÓGICA DE ORQUESTACIÓN
+# -----------------------------------------------------------------
+
+
+
+if [ "$MY_RANK" = "0" ]; then
+    echo "[MASTER] Rol: ORQUESTADOR. IP: $MY_IP"
+
+    > /tmp/hostfile
+    if [ "$DIST_MODE" = "1" ]; then
+        for ((i=0; i<MY_SIZE; i++)); do
+            echo "node$i" >> /tmp/hostfile
+        done
+
+        echo "[MASTER] Esperando a los esclavos (Puerto 22)..."
+        for ((i=1; i<MY_SIZE; i++)); do
+            PEER_IP="192.168.0.$((i + 2))"
+            echo "[MASTER] Esperando a node$i ($PEER_IP)..."
+            WAIT_SECS=0
+            WAIT_MAX=${WAIT_MAX:-900}
+            while true; do
+                if command -v nc >/dev/null 2>&1; then
+                    nc -z -w 1 node$i 22 && break
+                else
+                    (echo > /dev/tcp/node$i/22) >/dev/null 2>&1 && break
+                fi
+
+                echo "[MASTER] node$i aún no acepta TCP/22. Diagnóstico:"
+                ip -4 route get "$PEER_IP" || true
+                ip neigh show "$PEER_IP" dev "$IFACE" || true
+                WAIT_SECS=$((WAIT_SECS + 1))
+                if [ "$WAIT_SECS" -ge "$WAIT_MAX" ]; then
+                    echo "[MASTER][ERROR] Timeout esperando a node$i (${WAIT_MAX}s)."
+                    dmesg | tail -n 120 || true
+                    /sbin/m5 exit 1
+                fi
+                sleep 1
+            done
+            echo "[MASTER] node$i listo."
+        done
+    else
+        echo "node0" >> /tmp/hostfile
+    fi
+
+    echo "[MASTER] Ejecutando MPIRUN..."
+
+    if [ ! -f "$BENCHMARK_BIN" ]; then
+        echo "[ERROR] Binario no encontrado: $BENCHMARK_BIN"
+        ls -R /root/osu_installed
+        /sbin/m5 exit 1
+    fi
+
+
+    export HWLOC_XMLFILE=/tmp/topo.xml
+    /sbin/m5 workbegin 0
+    /sbin/m5 resetstats
+    if [ "$DIST_MODE" = "1" ]; then
+        mpirun \
+            --hostfile /tmp/hostfile \
+            -np $MY_SIZE \
+            "$BENCHMARK_BIN" $BENCHMARK_ARGS
+    else
+        mpirun \
+            -np $MY_SIZE \
+            "$BENCHMARK_BIN" $BENCHMARK_ARGS
+    fi
+
+    EXIT_CODE=$?
+    echo "[MASTER] MPI Finalizado. Exit: $EXIT_CODE"
+
+    /sbin/m5 exit 1
+
+else
+    echo "[SLAVE] SSHD activo. Esperando conexión del Master..."
+    tail -f /dev/null
+fi

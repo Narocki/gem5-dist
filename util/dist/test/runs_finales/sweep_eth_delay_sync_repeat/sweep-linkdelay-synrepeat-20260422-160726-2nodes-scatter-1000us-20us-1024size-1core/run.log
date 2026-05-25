@@ -1,0 +1,30 @@
+[dist-sweep] Detected 32 host CPUs, allowing up to 24 for parallel runs, which means up to 8 parallel cases (with NNODES + 1 processes each).
+[dist-sweep] Master log: /workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260422-160726-8nodes-scatter-1000us-20us-1024size-2cores/run.log
+[dist-sweep] Summary CSV: /workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260422-160726-8nodes-scatter-1000us-20us-1024size-2cores/summary.csv
+[dist-sweep] Parallelism: total_cpus=32 max_cpus_for_parallel=24 procs_per_case=NNODES + 1 max_parallel_runs=8
+[dist-sweep] START case_id=2 topology=flat link_delay=500us syn_repeat=250000ns port=2212 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260422-160726-8nodes-scatter-1000us-20us-1024size-2cores/flat/ld_500us/sr_plus-50pct
+[dist-sweep] START case_id=0 topology=flat link_delay=1000us syn_repeat=500000ns port=2210 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260422-160726-8nodes-scatter-1000us-20us-1024size-2cores/flat/ld_1000us/sr_plus-50pct
+[dist-sweep] START case_id=3 topology=hierarchical link_delay=500us syn_repeat=250000ns port=2213 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260422-160726-8nodes-scatter-1000us-20us-1024size-2cores/hierarchical/ld_500us/sr_plus-50pct
+[dist-sweep] START case_id=1 topology=hierarchical link_delay=1000us syn_repeat=500000ns port=2211 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260422-160726-8nodes-scatter-1000us-20us-1024size-2cores/hierarchical/ld_1000us/sr_plus-50pct
+[dist-sweep] START case_id=6 topology=flat link_delay=100us syn_repeat=50000ns port=2216 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260422-160726-8nodes-scatter-1000us-20us-1024size-2cores/flat/ld_100us/sr_plus-50pct
+[dist-sweep] START case_id=5 topology=hierarchical link_delay=200us syn_repeat=100000ns port=2215 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260422-160726-8nodes-scatter-1000us-20us-1024size-2cores/hierarchical/ld_200us/sr_plus-50pct
+[dist-sweep] START case_id=4 topology=flat link_delay=200us syn_repeat=100000ns port=2214 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260422-160726-8nodes-scatter-1000us-20us-1024size-2cores/flat/ld_200us/sr_plus-50pct
+[dist-sweep] START case_id=7 topology=hierarchical link_delay=100us syn_repeat=50000ns port=2217 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260422-160726-8nodes-scatter-1000us-20us-1024size-2cores/hierarchical/ld_100us/sr_plus-50pct
+[dist-sweep] DONE topology=flat link_delay=500us syn_repeat=250000ns
+[dist-sweep] START case_id=8 topology=flat link_delay=50us syn_repeat=25000ns port=2218 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260422-160726-8nodes-scatter-1000us-20us-1024size-2cores/flat/ld_50us/sr_plus-50pct
+[dist-sweep] DONE topology=flat link_delay=100us syn_repeat=50000ns
+[dist-sweep] DONE topology=hierarchical link_delay=200us syn_repeat=100000ns
+[dist-sweep] START case_id=9 topology=hierarchical link_delay=50us syn_repeat=25000ns port=2219 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260422-160726-8nodes-scatter-1000us-20us-1024size-2cores/hierarchical/ld_50us/sr_plus-50pct
+[dist-sweep] START case_id=10 topology=flat link_delay=20us syn_repeat=10000ns port=2220 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260422-160726-8nodes-scatter-1000us-20us-1024size-2cores/flat/ld_20us/sr_plus-50pct
+[dist-sweep] DONE topology=flat link_delay=200us syn_repeat=100000ns
+[dist-sweep] DONE topology=hierarchical link_delay=100us syn_repeat=50000ns
+[dist-sweep] START case_id=11 topology=hierarchical link_delay=20us syn_repeat=10000ns port=2221 case_dir=/workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260422-160726-8nodes-scatter-1000us-20us-1024size-2cores/hierarchical/ld_20us/sr_plus-50pct
+[dist-sweep] DONE topology=hierarchical link_delay=500us syn_repeat=250000ns
+[dist-sweep] DONE topology=flat link_delay=1000us syn_repeat=500000ns
+[dist-sweep] DONE topology=hierarchical link_delay=1000us syn_repeat=500000ns
+[dist-sweep] DONE topology=flat link_delay=50us syn_repeat=25000ns
+[dist-sweep] DONE topology=hierarchical link_delay=50us syn_repeat=25000ns
+[dist-sweep] DONE topology=hierarchical link_delay=20us syn_repeat=10000ns
+[dist-sweep] DONE topology=flat link_delay=20us syn_repeat=10000ns
+[dist-sweep] Finished all runs.
+[dist-sweep] See summary: /workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/sweep-linkdelay-synrepeat-20260422-160726-8nodes-scatter-1000us-20us-1024size-2cores/summary.csv

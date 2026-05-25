@@ -15,6 +15,10 @@ set -euo pipefail
 
 GEM5_DIR=$(pwd)/$(dirname $0)/../../..
 
+# Default M5_PATH for this workspace if it is not exported by the user.
+M5_PATH=${M5_PATH:-/workspaces/gem5}
+export M5_PATH
+
 IMG=${M5_PATH}/disks/x86-ubuntu-22.04-img-20250731
 VMLINUX=${M5_PATH}/binaries/x86-linux-kernel-5.15.180
 BOOT_SCRIPT=${GEM5_DIR}/util/dist/test/simple_bootscript_igb.rcS
@@ -31,19 +35,18 @@ RESOURCE_LOG=${RUN_ROOT}/host_resources.txt
 
 KERNEL_CMD="random.trust_cpu=on nokaslr acpi=off"
 
-ETH_LINK_DELAY="1ms"
-ETH_LINK_SPEED="1Gbps"
-SYN_REPEAT="1ms"
-SYN_START="1t"
 
-CPU_TYPE="timing"
 # NUM_CORES=1
 
-ENABLE_SWITCH=1
-SWITCH_START_CPU_TYPE="kvm"
-SWITCH_NEXT_CPU_TYPE="atomic"
+# Optional debug flags for gem5, e.g.:
+#   DEBUG_FLAGS="DistEthernet,DistSync"
+DEBUG_FLAGS=${DEBUG_FLAGS:-}
 
-# NNODES=2
+# ENABLE_SWITCH=1
+# SWITCH_START_CPU_TYPE="kvm"
+# SWITCH_NEXT_CPU_TYPE="atomic"
+
+# NNODES=4
 # ENABLE_HIERARCHICAL_SWITCH=1
 # LSB_MCPU_HOSTS="192.168.1.75 1 192.168.1.118 1"
 # SSH_PORTS="2222 2224"
@@ -60,6 +63,7 @@ ENABLE_HIERARCHICAL_SWITCH=${ENABLE_HIERARCHICAL_SWITCH:-1}
 NLEAF=${NLEAF:-2}
 NNODES=${NNODES:-2}
 NODES_PER_SWITCH=${NODES_PER_SWITCH:-1,1}
+
 
 # If no allocation is provided, run everything on localhost.
 if [ -z "${LSB_MCPU_HOSTS:-}" ]; then
@@ -88,6 +92,14 @@ SW_ARGS=(
   --ethernet-linkspeed=${ETH_LINK_SPEED}
 )
 
+M5_ARGS=(
+  --listener-mode=off
+)
+
+if [[ -n "${DEBUG_FLAGS}" ]]; then
+  M5_ARGS+=(--debug-flags=${DEBUG_FLAGS})
+fi
+
 if [[ "${ENABLE_HIERARCHICAL_SWITCH}" == "1" ]]; then
   TOPOLOGY_ARGS+=(
     --num-leaf-switches "${NLEAF}"
@@ -115,7 +127,7 @@ fi
       --sw-args                                              \
         "${SW_ARGS[@]}"                                      \
       --m5-args                                              \
-        --listener-mode=off                                  \
+        "${M5_ARGS[@]}"                                     \
       --fs-args                                              \
         --dist-sync-start=${SYN_START}                       \
         --dist-sync-repeat=${SYN_REPEAT}                     \

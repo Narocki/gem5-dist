@@ -1,0 +1,23 @@
+	Command being timed: "/workspaces/gem5/util/dist/test/./../../../util/dist/gem5-dist-x86-stdlib.sh -n 2 -r /workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/hosts-np-scaling-20260414-085244/hosts-2/multi-np -c /workspaces/gem5/util/dist/test/./../../../util/dist/test/runs/hosts-np-scaling-20260414-085244/hosts-2/multi-np -x /workspaces/gem5/util/dist/test/./../../../build/X86/gem5.opt -p 2210 --kernel-cmd random.trust_cpu=on mpi_np_list=32 --sw-args --dist-sync-start=9s --dist-sync-repeat=200us --ethernet-linkdelay=200us --ethernet-linkspeed=1Gbps --m5-args --listener-mode=off --fs-args --dist-sync-start=9s --dist-sync-repeat=200us --ethernet-linkdelay=200us --ethernet-linkspeed=1Gbps --cpu-type=timing --num-cores=8 --kvm-dist-eventq-strategy=separate --kvm-dist-allow-smp --switch-on-workbegin --switch-start-cpu-type=kvm --switch-next-cpu-type=o3 --root=/dev/sda2 --disk=/workspaces/gem5/disks/x86-ubuntu-22.04-img-20250731 --kernel=/workspaces/gem5/binaries/x86-linux-kernel-5.15.180 --readfile=/workspaces/gem5/util/dist/test/./../../../util/dist/test/simple_bootscript_igb_mpi_np.rcS --continue-after-panic"
+	User time (seconds): 158880.18
+	System time (seconds): 25.38
+	Percent of CPU this job got: 115%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 38:03:53
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1685160
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 10
+	Minor (reclaiming a frame) page faults: 1329397
+	Voluntary context switches: 3993512
+	Involuntary context switches: 1088463
+	Swaps: 0
+	File system inputs: 57248
+	File system outputs: 35176
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

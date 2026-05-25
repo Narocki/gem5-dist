@@ -88,7 +88,17 @@ class X86CpuCluster(CpuCluster):
         for cpu in self.cpus:
             l1i = None if self._l1i_type is None else self._l1i_type()
             l1d = None if self._l1d_type is None else self._l1d_type()
-            cpu.addPrivateSplitL1Caches(l1i, l1d)
+            if l1i is None and l1d is None:
+                continue
+
+            try:
+                cpu.addPrivateSplitL1Caches(l1i, l1d)
+            except AttributeError:
+                m5.util.warn(
+                    "Skipping private L1 cache hookup for CPU model %s; "
+                    "it does not expose split L1 cache parameters.",
+                    cpu.__class__.__name__,
+                )
 
     def addL2(self, clk_domain):
         if self._l2_type is None:
